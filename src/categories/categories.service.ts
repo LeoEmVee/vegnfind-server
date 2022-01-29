@@ -13,4 +13,8 @@ export class CategoriesService {
   getHello(): string {
     return 'Hello World!';
   }
+
+  async createTest(body): Promise<Category> {
+    return await this.categoryRepository.save(body); 
+  }
 }
