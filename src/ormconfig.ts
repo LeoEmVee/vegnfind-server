@@ -9,6 +9,7 @@ const config: PostgresConnectionOptions = {
   database: 'veganfind',
   entities: ['dist/**/*.entity{.ts,.js}'],
   synchronize: true,
+
 };
 
 export default config;
