@@ -20,9 +20,9 @@ export class Brand {
   @OneToMany(() => Product, product => product.brand)
   products: Product[];
 
-  @ManyToMany(() => Shop, shop => shop.brands)
+  @ManyToMany(() => Shop, shop => shop.brands, {onDelete: 'CASCADE'})
   shops: Shop[];
 
-  @ManyToMany(() => Eat, eat => eat.brands)
+  @ManyToMany(() => Eat, eat => eat.brands, {onDelete: 'CASCADE'})
   eats: Eat[];
 }

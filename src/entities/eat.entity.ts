@@ -23,15 +23,17 @@ export class Eat extends Business {
   reviews: Review[];
 
   // this allows us to separate on Category.shops / Category.eats
-  @ManyToMany(() => Category, category => category.eats)
+  @ManyToMany(() => Category, category => category.eats, {onDelete: 'CASCADE'})
   @JoinTable()
   categories: Category[];
 
-  @ManyToMany(() => Favourites, favourites => favourites.eating)
+  @ManyToMany(() => Favourites, favourites => favourites.eating, {
+    onDelete: 'CASCADE',
+  })
   @JoinTable()
   favourites: Favourites[];
 
-  @ManyToMany(() => Brand, brand => brand.eats)
+  @ManyToMany(() => Brand, brand => brand.eats, {onDelete: 'CASCADE'})
   @JoinTable()
   brands: Brand[];
 }

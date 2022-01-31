@@ -38,7 +38,9 @@ export class Product {
   @Column('int')
   userFavCount: number;
 
-  @ManyToMany(() => Favourites, favourites => favourites.user)
+  @ManyToMany(() => Favourites, favourites => favourites.user, {
+    onDelete: 'CASCADE',
+  })
   @JoinTable()
   favourites: Favourites;
 
@@ -48,10 +50,12 @@ export class Product {
   @ManyToOne(() => Brand, brand => brand.products)
   brand: Brand;
 
-  @ManyToMany(() => Shop, shop => shop.products)
+  @ManyToMany(() => Shop, shop => shop.products, {onDelete: 'CASCADE'})
   shops: Shop[];
 
-  @ManyToMany(() => Category, category => category.products)
+  @ManyToMany(() => Category, category => category.products, {
+    onDelete: 'CASCADE',
+  })
   @JoinTable()
   categories: Category[];
 }

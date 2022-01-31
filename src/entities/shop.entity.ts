@@ -22,19 +22,21 @@ export class Shop extends Business {
   @OneToMany(() => Review, review => review.shop)
   reviews: Review[];
 
-  @ManyToMany(() => Product, product => product.shops)
+  @ManyToMany(() => Product, product => product.shops, {onDelete: 'CASCADE'})
   @JoinTable()
   products: Product[];
 
-  @ManyToMany(() => Category, category => category.shops)
+  @ManyToMany(() => Category, category => category.shops, {onDelete: 'CASCADE'})
   @JoinTable()
   categories: Category[];
 
-  @ManyToMany(() => Favourites, favourites => favourites.shopping)
+  @ManyToMany(() => Favourites, favourites => favourites.shopping, {
+    onDelete: 'CASCADE',
+  })
   @JoinTable()
   favourites: Favourites[];
 
-  @ManyToMany(() => Brand, brand => brand.shops)
+  @ManyToMany(() => Brand, brand => brand.shops, {onDelete: 'CASCADE'})
   @JoinTable()
   brands: Brand[];
 }

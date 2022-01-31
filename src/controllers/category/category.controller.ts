@@ -15,7 +15,7 @@ export class CategoryController {
   }
 
   @Delete()
-  deleteById(@Body() id: string) {
-    return this.categoryService.deleteAll(id);
+  deleteByName(@Body() data: Category) {
+    return this.categoryService.deleteByName(data);
   }
 }

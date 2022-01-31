@@ -16,13 +16,9 @@ export class Category {
   })
   products?: Product[];
 
-  @ManyToMany(() => Shop, shop => shop.categories, {
-    onDelete: 'CASCADE',
-  })
+  @ManyToMany(() => Shop, shop => shop.categories, {onDelete: 'CASCADE'})
   shops?: Shop[];
 
-  @ManyToMany(() => Eat, eat => eat.categories, {
-    onDelete: 'CASCADE',
-  })
+  @ManyToMany(() => Eat, eat => eat.categories, {onDelete: 'CASCADE'})
   eats?: Eat[];
 }
