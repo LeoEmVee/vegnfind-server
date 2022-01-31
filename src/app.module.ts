@@ -5,6 +5,7 @@ import {CategoryController} from './controllers/category/category.controller';
 import {CategoryService} from './services/category/category.service';
 import {Category} from './entities/category.entity';
 import config from './ormconfig';
+import {User} from './entities/user.entity';
 
 @Module({
   imports: [
@@ -26,7 +27,7 @@ import config from './ormconfig';
     //     },
     //   },
     // }),
-    TypeOrmModule.forFeature([Category]),
+    TypeOrmModule.forFeature([Category, User]),
   ],
   controllers: [CategoryController],
   providers: [CategoryService],

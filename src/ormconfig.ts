@@ -4,11 +4,10 @@ require('dotenv').config();
 const config: PostgresConnectionOptions = {
   type: 'postgres',
   url: process.env.DATABASE_URL,
-  extra: {
-    ssl: {
-      rejectUnauthorized: false,
-    },
+  ssl: {
+    rejectUnauthorized: false,
   },
+  entities: ['**/src/entity/*{.ts,.js}'],
 };
 
 export default config;
