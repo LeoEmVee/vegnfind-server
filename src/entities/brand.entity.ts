@@ -5,6 +5,7 @@ import {
   OneToMany,
   ManyToMany,
 } from 'typeorm';
+import {Eat} from './eat.entity';
 import {Product} from './product.entity';
 import {Shop} from './shop.entity';
 
@@ -21,4 +22,7 @@ export class Brand {
 
   @ManyToMany(() => Shop, shop => shop.brands)
   shops: Shop[];
+
+  @ManyToMany(() => Eat, eat => eat.brands)
+  eats: Eat[];
 }

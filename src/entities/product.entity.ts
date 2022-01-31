@@ -27,10 +27,10 @@ export class Product {
   description: string;
 
   @Column()
-  thumbImg: URL; // we can change to type string if problematic
+  thumbImg: string;
 
-  @Column()
-  images: URL[];
+  @Column('text', {array: true})
+  images: string[];
 
   @Column('int')
   rating: number;
@@ -38,8 +38,8 @@ export class Product {
   @Column('int')
   userFavCount: number;
 
-  @OneToOne(() => Favourites, favourites => favourites.user)
-  @JoinColumn()
+  @ManyToMany(() => Favourites, favourites => favourites.user)
+  @JoinTable()
   favourites: Favourites;
 
   @OneToMany(() => Review, review => review.product)

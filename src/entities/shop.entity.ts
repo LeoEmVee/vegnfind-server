@@ -16,9 +16,6 @@ import {Favourites} from './favourites.entity';
 
 @Entity()
 export class Shop extends Business {
-  @Column({default: 'shopping'})
-  business: string;
-
   @OneToOne(() => MapLocation, mapLocation => mapLocation.shop)
   location: MapLocation;
 
@@ -26,6 +23,7 @@ export class Shop extends Business {
   reviews: Review[];
 
   @ManyToMany(() => Product, product => product.shops)
+  @JoinTable()
   products: Product[];
 
   @ManyToMany(() => Category, category => category.shops)
@@ -36,7 +34,7 @@ export class Shop extends Business {
   @JoinTable()
   favourites: Favourites[];
 
-  @ManyToMany(() => Brand, brand => brand.shops) // do we really want this one? maybe just for shops not eat?
+  @ManyToMany(() => Brand, brand => brand.shops)
   @JoinTable()
   brands: Brand[];
 }

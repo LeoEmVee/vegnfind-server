@@ -6,17 +6,17 @@ import {Shop} from './shop.entity';
 @Entity()
 export class Category {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id?: string;
 
   @Column()
   name: string;
 
   @ManyToMany(() => Product, product => product.categories)
-  products: Product[];
+  products?: Product[];
 
   @ManyToMany(() => Shop, shop => shop.categories)
-  shops: Shop[];
+  shops?: Shop[];
 
   @ManyToMany(() => Eat, eat => eat.categories)
-  eats: Eat[];
+  eats?: Eat[];
 }

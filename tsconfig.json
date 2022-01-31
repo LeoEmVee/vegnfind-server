@@ -1,4 +1,5 @@
 {
+  "experimentalDecorators": true,
   "compilerOptions": {
     "module": "commonjs",
     "declaration": true,

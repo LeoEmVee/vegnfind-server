@@ -26,8 +26,8 @@ export abstract class Business {
   userFavCount: number;
 
   @Column()
-  thumbImg: URL;
+  thumbImg: string;
 
-  @Column()
-  images: URL[];
+  @Column('text', {array: true})
+  images: string[];
 }

@@ -29,7 +29,8 @@ export class User {
   @Column()
   password: string;
 
-  // we could implement user known locations in the future, OneToOne with Location[] of all known locations
+  @Column()
+  profilePic: string;
 
   @OneToMany(() => Review, review => review.user)
   reviews: Review[];
