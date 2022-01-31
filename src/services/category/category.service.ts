@@ -15,12 +15,11 @@ export class CategoryService {
     await this.categoryRepository.save(category);
   }
 
-  async deleteByName(data: Category): Promise<void> {
+  async deleteAllRows(): Promise<void> {
     await this.categoryRepository
       .createQueryBuilder()
       .delete()
       .from(Category)
-      .where('name = :name', {name: data.name})
       .execute();
   }
 }

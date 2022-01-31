@@ -1,7 +1,6 @@
 import {Body, Controller, Delete, Get, Post, Res} from '@nestjs/common';
 import {Category} from 'src/entities/category.entity';
 import {CategoryService} from '../../services/category/category.service';
-import {Response} from 'express';
 
 @Controller('category')
 export class CategoryController {
@@ -15,7 +14,7 @@ export class CategoryController {
   }
 
   @Delete()
-  deleteByName(@Body() data: Category) {
-    return this.categoryService.deleteByName(data);
+  deleteAll() {
+    return this.categoryService.deleteAllRows();
   }
 }

@@ -5,6 +5,8 @@ import {CategoryController} from './controllers/category/category.controller';
 import {CategoryService} from './services/category/category.service';
 import {Category} from './entities/category.entity';
 import {User} from './entities/user.entity';
+import {UserController} from './controllers/user/user.controller';
+import {UserService} from './services/user/user.service';
 require('dotenv').config();
 
 @Module({
@@ -27,7 +29,7 @@ require('dotenv').config();
     }),
     TypeOrmModule.forFeature([Category, User]),
   ],
-  controllers: [CategoryController],
-  providers: [CategoryService],
+  controllers: [CategoryController, UserController],
+  providers: [CategoryService, UserService],
 })
 export class AppModule {}

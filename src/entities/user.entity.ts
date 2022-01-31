@@ -6,6 +6,7 @@ import {
   OneToMany,
   JoinColumn,
 } from 'typeorm';
+import {IsEmail} from 'class-validator';
 import {Review} from './review.entity';
 import {Favourites} from './favourites.entity';
 
@@ -24,6 +25,7 @@ export class User {
   userName: string;
 
   @Column()
+  @IsEmail()
   email: string;
 
   @Column()
