@@ -1,20 +1,32 @@
-import {Body, Controller, Delete, Post} from '@nestjs/common';
+import {Body, Controller, Delete, Get, Post, Put} from '@nestjs/common';
 import {Veggie} from 'src/entities/veggie.entity';
 import {VeggieService} from 'src/services/user/veggie.service';
 
-@Controller('user')
+@Controller('veggie')
 export class VeggieController {
   constructor(private readonly veggieService: VeggieService) {}
 
+  @Get()
+  findUser(@Body() id: string) {
+    return this.veggieService.findOneById(id);
+  }
+
   @Post()
-  createNewUser(@Body() data: Veggie) {
-    const veggie = {...new Veggie(), ...data};
-    // const veggie = data;
-    console.log(veggie);
-    return this.veggieService.create(veggie);
+  createVeggie(@Body() veggie: Veggie) {
+    return this.veggieService.createOne(veggie);
+  }
+
+  @Put()
+  updateVeggie(@Body() veggie: Veggie) {
+    return this.veggieService.updateOne(veggie);
   }
 
   @Delete()
+  deleteVeggie(@Body() veggieId: string) {
+    return this.veggieService.deleteOne(veggieId);
+  }
+
+  @Delete('all')
   deleteAll() {
     return this.veggieService.deleteAll() && 'deleted';
   }
