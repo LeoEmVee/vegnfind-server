@@ -1,5 +1,5 @@
 import {Entity, Column, PrimaryGeneratedColumn, ManyToOne} from 'typeorm';
-import {User} from './user.entity';
+import {Veggie} from './veggie.entity';
 import {Product} from './product.entity';
 import {Shop} from './shop.entity';
 import {Eat} from './eat.entity';
@@ -15,8 +15,8 @@ export class Review {
   @Column()
   rating: number;
 
-  @ManyToOne(() => User, user => user.reviews)
-  user: User;
+  @ManyToOne(() => Veggie, veggie => veggie.reviews)
+  user: Veggie;
 
   @ManyToOne(() => Product, product => product.reviews)
   product: Product;

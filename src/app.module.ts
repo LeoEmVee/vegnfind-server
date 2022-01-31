@@ -4,9 +4,9 @@ import {join} from 'path';
 import {CategoryController} from './controllers/category/category.controller';
 import {CategoryService} from './services/category/category.service';
 import {Category} from './entities/category.entity';
-import {User} from './entities/user.entity';
-import {UserController} from './controllers/user/user.controller';
-import {UserService} from './services/user/user.service';
+import {Veggie} from './entities/veggie.entity';
+import {VeggieController} from './controllers/user/veggie.controller';
+import {VeggieService} from './services/user/veggie.service';
 require('dotenv').config();
 
 @Module({
@@ -27,9 +27,9 @@ require('dotenv').config();
         },
       },
     }),
-    TypeOrmModule.forFeature([Category, User]),
+    TypeOrmModule.forFeature([Category, Veggie]),
   ],
-  controllers: [CategoryController, UserController],
-  providers: [CategoryService, UserService],
+  controllers: [CategoryController, VeggieController],
+  providers: [CategoryService, VeggieService],
 })
 export class AppModule {}

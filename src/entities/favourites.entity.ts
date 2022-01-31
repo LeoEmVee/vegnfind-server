@@ -1,5 +1,5 @@
 import {Entity, PrimaryGeneratedColumn, OneToOne, ManyToMany} from 'typeorm';
-import {User} from './user.entity';
+import {Veggie} from './veggie.entity';
 import {Product} from './product.entity';
 import {Shop} from './shop.entity';
 import {Eat} from './eat.entity';
@@ -20,6 +20,6 @@ export class Favourites {
   @ManyToMany(() => Eat, eat => eat.favourites, {onDelete: 'CASCADE'})
   eating: Eat[];
 
-  @OneToOne(() => User, user => user.favourites, {onDelete: 'CASCADE'})
-  user: User;
+  @OneToOne(() => Veggie, veggie => veggie.favourites, {onDelete: 'CASCADE'})
+  user: Veggie;
 }

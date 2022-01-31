@@ -10,8 +10,9 @@ import {IsEmail} from 'class-validator';
 import {Review} from './review.entity';
 import {Favourites} from './favourites.entity';
 
+// a Veggie is the user of the app
 @Entity()
-export class User {
+export class Veggie {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
