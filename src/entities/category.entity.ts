@@ -11,12 +11,18 @@ export class Category {
   @Column()
   name: string;
 
-  @ManyToMany(() => Product, product => product.categories)
+  @ManyToMany(() => Product, product => product.categories, {
+    onDelete: 'CASCADE',
+  })
   products?: Product[];
 
-  @ManyToMany(() => Shop, shop => shop.categories)
+  @ManyToMany(() => Shop, shop => shop.categories, {
+    onDelete: 'CASCADE',
+  })
   shops?: Shop[];
 
-  @ManyToMany(() => Eat, eat => eat.categories)
+  @ManyToMany(() => Eat, eat => eat.categories, {
+    onDelete: 'CASCADE',
+  })
   eats?: Eat[];
 }

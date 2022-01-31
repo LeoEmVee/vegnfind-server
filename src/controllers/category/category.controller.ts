@@ -8,14 +8,14 @@ export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
   @Post()
-  createCategory(@Body() categoryName: string) {
+  createCategory(@Body() data: Category) {
     const category = new Category();
-    category.name = categoryName;
-    const response = this.categoryService.insert(category);
-    console.log('controller', response);
-    return response;
+    category.name = data.name;
+    return this.categoryService.insert(category);
   }
 
   @Delete()
-  deleteCategory(@Body() categoryName: string) {}
+  deleteById(@Body() id: string) {
+    return this.categoryService.deleteAll(id);
+  }
 }
