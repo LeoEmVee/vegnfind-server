@@ -8,9 +8,10 @@ export class VeggieController {
 
   @Get()
   findUser(@Body() id: string) {
-    return this.veggieService.findOneById(id);
+    return this.veggieService.findOneByCondition(id);
   }
 
+  // POST IS ALWAYS HANDLED THROUGH AUTH.CONTROLLER
   @Post()
   createVeggie(@Body() veggie: Veggie) {
     return this.veggieService.createOne(veggie);
@@ -22,10 +23,11 @@ export class VeggieController {
   }
 
   @Delete()
-  deleteVeggie(@Body() veggieId: string) {
-    return this.veggieService.deleteOne(veggieId);
+  deleteVeggie(@Body() id: string) {
+    return this.veggieService.deleteOneByCondition(id);
   }
 
+  // ONLY FOR DEVELOPMENT
   @Delete('all')
   deleteAll() {
     return this.veggieService.deleteAll() && 'deleted';

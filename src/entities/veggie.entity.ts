@@ -36,9 +36,9 @@ export class Veggie {
   profilePic: string;
 
   @OneToMany(() => Review, review => review.user)
-  reviews: Review[];
+  reviews?: Review[];
 
   @OneToOne(() => Favourites, favourites => favourites.user)
   @JoinColumn()
-  favourites: Favourites;
+  favourites?: Favourites;
 }

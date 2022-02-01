@@ -6,15 +6,28 @@ import {CategoryService} from '../../services/category/category.service';
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
-  @Post()
-  createCategory(@Body() data: Category) {
-    const category = new Category();
-    category.name = data.name;
-    return this.categoryService.insert(category);
+  @Get('all')
+  getAllCategories() {
+    return this.categoryService.getAll();
   }
 
+  @Post()
+  createCategory(@Body() category: Category) {
+    const categoryLow = {
+      ...category,
+      name: category.name.toLowerCase(),
+    };
+    return this.categoryService.createOne(categoryLow);
+  }
+
+  // ONLY FOR DEVELOPMENT
   @Delete()
-  deleteAll() {
-    return this.categoryService.deleteAllRows();
+  deleteCategoryById(@Body() id: string) {
+    return this.categoryService.deleteOne(id);
+  }
+
+  @Delete('all')
+  deleteAllCategories() {
+    return this.categoryService.deleteAll();
   }
 }

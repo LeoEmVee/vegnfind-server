@@ -1,11 +1,4 @@
-import {
-  Entity,
-  Column,
-  OneToOne,
-  OneToMany,
-  ManyToMany,
-  JoinTable,
-} from 'typeorm';
+import {Entity, OneToOne, OneToMany, ManyToMany, JoinTable} from 'typeorm';
 
 import {Business} from './abstract/business';
 import {Brand} from './brand.entity';

@@ -1,4 +1,4 @@
-import {Injectable} from '@nestjs/common';
+import {ConflictException, Injectable} from '@nestjs/common';
 import {InjectRepository} from '@nestjs/typeorm';
 import {response} from 'express';
 import {Category} from 'src/entities/category.entity';
@@ -11,11 +11,31 @@ export class CategoryService {
     private categoryRepository: Repository<Category>,
   ) {}
 
-  async insert(category: Category): Promise<any> {
-    await this.categoryRepository.save(category);
+  async getAll(): Promise<Category[]> {
+    return await this.categoryRepository.find();
   }
 
-  async deleteAllRows(): Promise<void> {
+  async createOne(category: Category): Promise<Category> {
+    const categoryExists = await this.categoryRepository.findOne(null, {
+      where: {name: category.name},
+    });
+    if (categoryExists) {
+      throw new ConflictException(null, 'This Category already exists!');
+    }
+    const newCategory = await this.categoryRepository.create({...category});
+    return this.categoryRepository.save(newCategory);
+  }
+
+  async deleteOne(id: string): Promise<Category> {
+    try {
+      const category = await this.categoryRepository.findOneOrFail(id);
+      return await this.categoryRepository.remove(category);
+    } catch (error) {
+      throw new ConflictException(null, "This Category doesn't exist!");
+    }
+  }
+
+  async deleteAll(): Promise<void> {
     await this.categoryRepository
       .createQueryBuilder()
       .delete()

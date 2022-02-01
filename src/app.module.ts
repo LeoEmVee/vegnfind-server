@@ -7,6 +7,18 @@ import {Category} from './entities/category.entity';
 import {Veggie} from './entities/veggie.entity';
 import {VeggieController} from './controllers/user/veggie.controller';
 import {VeggieService} from './services/user/veggie.service';
+import {ShopController} from './controllers/shop/shop.controller';
+import {ShopService} from './services/shop/shop.service';
+import {Shop} from './entities/shop.entity';
+import {EatController} from './controllers/eat/eat.controller';
+import {EatService} from './services/eat/eat.service';
+import {Eat} from './entities/eat.entity';
+import {AuthController} from './controllers/auth/auth.controller';
+import {AuthService} from './services/auth/auth.service';
+import {PassportModule} from '@nestjs/passport';
+import {JwtModule} from '@nestjs/jwt';
+require('donenv').config();
+
 require('dotenv').config();
 
 @Module({
@@ -27,9 +39,26 @@ require('dotenv').config();
         },
       },
     }),
-    TypeOrmModule.forFeature([Category, Veggie]),
+    TypeOrmModule.forFeature([Category, Veggie, Shop, Eat]),
+    PassportModule,
+    JwtModule.register({
+      secret: process.env.SECRET,
+      signOptions: {expiresIn: '60s'},
+    }),
   ],
-  controllers: [CategoryController, VeggieController],
-  providers: [CategoryService, VeggieService],
+  controllers: [
+    CategoryController,
+    VeggieController,
+    ShopController,
+    EatController,
+    AuthController,
+  ],
+  providers: [
+    CategoryService,
+    VeggieService,
+    ShopService,
+    EatService,
+    AuthService,
+  ],
 })
 export class AppModule {}
