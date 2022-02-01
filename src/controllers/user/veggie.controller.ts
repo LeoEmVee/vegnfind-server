@@ -6,13 +6,13 @@ import {VeggieService} from 'src/services/user/veggie.service';
 export class VeggieController {
   constructor(private readonly veggieService: VeggieService) {}
 
-  @Get()
+  @Post('find')
   findUser(@Body() condition: string) {
     return this.veggieService.findOneByCondition(condition);
   }
 
   // POST IS ALWAYS HANDLED THROUGH AUTH.CONTROLLER
-  @Post()
+  @Post('create')
   createVeggie(@Body() veggie: Veggie) {
     return this.veggieService.createOne(veggie);
   }

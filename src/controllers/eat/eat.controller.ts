@@ -6,12 +6,12 @@ import {EatService} from 'src/services/eat/eat.service';
 export class EatController {
   constructor(private readonly eatService: EatService) {}
 
-  @Get()
+  @Post('find')
   findEat(@Body() id: string) {
     return this.eatService.findOneById(id);
   }
 
-  @Post()
+  @Post('create')
   createEat(@Body() eat: Eat) {
     const eatLow = {
       ...eat,

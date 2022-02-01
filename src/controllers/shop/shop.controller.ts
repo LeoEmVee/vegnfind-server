@@ -15,12 +15,12 @@ import {AuthController} from '../auth/auth.controller';
 export class ShopController {
   constructor(private readonly shopService: ShopService) {}
 
-  @Get()
+  @Post('find')
   findShop(@Body() id: string) {
     return this.shopService.findOneById(id);
   }
 
-  @Post()
+  @Post('create')
   createShop(@Body() shop: Shop) {
     return this.shopService.createOne(shop);
   }
