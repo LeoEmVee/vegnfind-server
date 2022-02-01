@@ -23,7 +23,7 @@ export class Veggie {
   lastName: string;
 
   @Column()
-  userName: string;
+  username: string;
 
   @Column()
   @IsEmail()

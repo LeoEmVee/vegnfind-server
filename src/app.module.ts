@@ -17,6 +17,7 @@ import {AuthController} from './controllers/auth/auth.controller';
 import {AuthService} from './services/auth/auth.service';
 import {LocalStrategy} from './auth/local.strategy';
 import {PassportModule} from '@nestjs/passport';
+import {JwtModule} from '@nestjs/jwt';
 require('dotenv').config();
 
 @Module({
@@ -39,6 +40,10 @@ require('dotenv').config();
     }),
     TypeOrmModule.forFeature([Category, Veggie, Shop, Eat]),
     PassportModule,
+    JwtModule.register({
+      secret: process.env.SECRET,
+      signOptions: {expiresIn: '300s'},
+    }),
   ],
   controllers: [
     CategoryController,

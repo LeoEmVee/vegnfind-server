@@ -1,19 +1,30 @@
 import {Injectable, UnauthorizedException} from '@nestjs/common';
 import {Veggie} from '../../entities/veggie.entity';
 import {VeggieService} from '../user/veggie.service';
+import {JwtService} from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
-  constructor(private veggieService: VeggieService) {}
+  constructor(
+    private veggieService: VeggieService,
+    private jwtService: JwtService,
+  ) {}
 
-  async validateUser(email: string, password: string): Promise<any> {
-    const user = await this.veggieService.findOneByCondition({email});
+  async validateUser(username: string, password: string): Promise<any> {
+    const user = await this.veggieService.findOneByCondition({username});
     if (user && bcrypt.compare(password, user.password)) {
       const {password, ...result} = user;
       return result;
     } else {
       return null;
     }
+  }
+
+  async login(user: any) {
+    const payload = {username: user.username, sub: user.id};
+    return {
+      access_token: await this.jwtService.sign(payload),
+    };
   }
 }

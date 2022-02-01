@@ -7,8 +7,8 @@ export class VeggieController {
   constructor(private readonly veggieService: VeggieService) {}
 
   @Get()
-  findUser(@Body() id: string) {
-    return this.veggieService.findOneByCondition(id);
+  findUser(@Body() condition: string) {
+    return this.veggieService.findOneByCondition(condition);
   }
 
   // POST IS ALWAYS HANDLED THROUGH AUTH.CONTROLLER
