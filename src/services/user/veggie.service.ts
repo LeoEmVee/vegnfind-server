@@ -13,7 +13,9 @@ export class VeggieService {
 
   async findOneByCondition(condition: any): Promise<Veggie> {
     try {
-      return await this.veggieRepository.findOneOrFail(condition);
+      const user = await this.veggieRepository.findOneOrFail(condition);
+      user.password = null;
+      return user;
     } catch (error) {
       throw new NotFoundException(error, "This Veggie doesn't exist");
     }

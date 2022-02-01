@@ -28,7 +28,6 @@ export class AuthController {
   async login(@Request() req) {
     const {username} = req;
     const validatedUser = await this.veggieService.findOneByCondition(username);
-
     return await this.authService.login(validatedUser);
   }
 }
