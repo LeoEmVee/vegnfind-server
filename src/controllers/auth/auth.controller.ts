@@ -2,13 +2,13 @@ import {
   Post,
   Body,
   Controller,
-  BadRequestException,
   UnauthorizedException,
+  UseGuards,
 } from '@nestjs/common';
 import {AuthService} from '../../services/auth/auth.service';
 import {Veggie} from '../../entities/veggie.entity';
 import {VeggieService} from 'src/services/user/veggie.service';
-import * as bcrypt from 'bcrypt';
+import {AuthGuard} from '@nestjs/passport';
 
 @Controller('veggie')
 export class AuthController {
@@ -22,6 +22,7 @@ export class AuthController {
     return this.veggieService.createOne(user);
   }
 
+  @UseGuards(AuthGuard('local'))
   @Post('login')
   async login(
     @Body('email') email: string,

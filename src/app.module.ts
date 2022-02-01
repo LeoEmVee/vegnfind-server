@@ -15,11 +15,10 @@ import {EatService} from './services/eat/eat.service';
 import {Eat} from './entities/eat.entity';
 import {AuthController} from './controllers/auth/auth.controller';
 import {AuthService} from './services/auth/auth.service';
-import {PassportModule} from '@nestjs/passport';
 import {JwtModule} from '@nestjs/jwt';
+import {LocalStrategy} from './auth/local.strategy';
+import {PassportModule} from '@nestjs/passport';
 require('donenv').config();
-
-require('dotenv').config();
 
 @Module({
   imports: [
@@ -43,7 +42,7 @@ require('dotenv').config();
     PassportModule,
     JwtModule.register({
       secret: process.env.SECRET,
-      signOptions: {expiresIn: '60s'},
+      signOptions: {expiresIn: '300s'},
     }),
   ],
   controllers: [
@@ -59,6 +58,7 @@ require('dotenv').config();
     ShopService,
     EatService,
     AuthService,
+    LocalStrategy,
   ],
 })
 export class AppModule {}
