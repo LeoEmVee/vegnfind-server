@@ -1,6 +1,15 @@
-import {Body, Controller, Delete, Get, Post, Put} from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Post,
+  Put,
+  UseGuards,
+} from '@nestjs/common';
 import {Shop} from 'src/entities/shop.entity';
 import {ShopService} from 'src/services/shop/shop.service';
+import {AuthController} from '../auth/auth.controller';
 
 @Controller('shop')
 export class ShopController {
