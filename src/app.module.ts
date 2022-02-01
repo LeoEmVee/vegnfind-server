@@ -18,7 +18,7 @@ import {AuthService} from './services/auth/auth.service';
 import {JwtModule} from '@nestjs/jwt';
 import {LocalStrategy} from './auth/local.strategy';
 import {PassportModule} from '@nestjs/passport';
-require('donenv').config();
+require('dotenv').config();
 
 @Module({
   imports: [
