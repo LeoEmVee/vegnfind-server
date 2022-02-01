@@ -40,10 +40,10 @@ require('dotenv').config();
     }),
     TypeOrmModule.forFeature([Category, Veggie, Shop, Eat]),
     PassportModule,
-    JwtModule.register({
-      secret: process.env.SECRET,
-      signOptions: {expiresIn: '300s'},
-    }),
+    // JwtModule.register({
+    //   secret: process.env.SECRET,
+    //   signOptions: {expiresIn: '300s'},
+    // }),
   ],
   controllers: [
     CategoryController,
