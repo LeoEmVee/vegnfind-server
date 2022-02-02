@@ -30,13 +30,13 @@ export class Product {
   thumbImg: string;
 
   @Column('text', {array: true})
-  images: string[];
+  images?: string[];
 
   @Column('int')
-  rating: number;
+  rating?: number;
 
   @Column('int')
-  userFavCount: number;
+  userFavCount?: number;
 
   @ManyToMany(() => Favourites, favourites => favourites.user, {
     onDelete: 'CASCADE',
@@ -57,5 +57,5 @@ export class Product {
     onDelete: 'CASCADE',
   })
   @JoinTable()
-  categories: Category[];
+  categories: Category;
 }

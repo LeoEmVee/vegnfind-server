@@ -18,6 +18,9 @@ import {AuthService} from './services/auth/auth.service';
 import {LocalStrategy} from './auth/local.strategy';
 import {PassportModule} from '@nestjs/passport';
 import {JwtModule} from '@nestjs/jwt';
+import {ProductController} from './controllers/product/product.controller';
+import {ProductService} from './services/product/product.service';
+import {Product} from './entities/product.entity';
 require('dotenv').config();
 
 @Module({
@@ -38,7 +41,7 @@ require('dotenv').config();
         },
       },
     }),
-    TypeOrmModule.forFeature([Category, Veggie, Shop, Eat]),
+    TypeOrmModule.forFeature([Category, Veggie, Shop, Eat, Product]),
     PassportModule,
     JwtModule.register({
       secret: process.env.SECRET,
@@ -51,6 +54,7 @@ require('dotenv').config();
     ShopController,
     EatController,
     AuthController,
+    ProductController,
   ],
   providers: [
     CategoryService,
@@ -59,6 +63,7 @@ require('dotenv').config();
     EatService,
     AuthService,
     LocalStrategy,
+    ProductService,
   ],
 })
 export class AppModule {}
