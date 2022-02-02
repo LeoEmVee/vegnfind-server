@@ -23,6 +23,9 @@ import {ProductService} from './services/product/product.service';
 import {Product} from './entities/product.entity';
 import {CloudinaryController} from './controllers/cloudinary/cloudinary.controller';
 import {CloudinaryService} from './services/cloudinary/cloudinary.service';
+import {Brand} from './entities/brand.entity';
+import {BrandController} from './controllers/brand/brand.controller';
+import {BrandService} from './services/brand/brand.service';
 require('dotenv').config();
 
 @Module({
@@ -43,7 +46,7 @@ require('dotenv').config();
         },
       },
     }),
-    TypeOrmModule.forFeature([Category, Veggie, Shop, Eat, Product]),
+    TypeOrmModule.forFeature([Category, Veggie, Shop, Eat, Product, Brand]),
     PassportModule,
     JwtModule.register({
       secret: process.env.SECRET,
@@ -58,6 +61,7 @@ require('dotenv').config();
     AuthController,
     ProductController,
     CloudinaryController,
+    BrandController,
   ],
   providers: [
     CategoryService,
@@ -68,6 +72,7 @@ require('dotenv').config();
     LocalStrategy,
     ProductService,
     CloudinaryService,
+    BrandService,
   ],
 })
 export class AppModule {}

@@ -54,9 +54,8 @@ export class Product {
   @ManyToMany(() => Shop, shop => shop.products, {onDelete: 'CASCADE'})
   shops: Shop[];
 
-  @ManyToMany(() => Category, category => category.products, {
+  @ManyToOne(() => Category, category => category.products, {
     onDelete: 'CASCADE',
   })
-  @JoinTable()
   categories: Category;
 }
