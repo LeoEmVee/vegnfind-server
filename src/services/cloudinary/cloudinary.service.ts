@@ -1,4 +1,4 @@
-import {Injectable} from '@nestjs/common';
+import {Injectable, UnprocessableEntityException} from '@nestjs/common';
 require('dotenv').config();
 const cloudinary = require('cloudinary');
 
@@ -11,8 +11,12 @@ cloudinary.config({
 @Injectable()
 export class CloudinaryService {
   async upload(dataString: string) {
-    return await cloudinary.uploader.upload(dataString, {
-      upload_preset: 'ml_default',
-    });
+    try {
+      return await cloudinary.uploader.upload(dataString, {
+        upload_preset: 'ml_default',
+      });
+    } catch (error) {
+      throw new UnprocessableEntityException('ESTO NO, EH!?');
+    }
   }
 }
