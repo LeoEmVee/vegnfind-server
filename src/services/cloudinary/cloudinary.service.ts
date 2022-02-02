@@ -12,9 +12,12 @@ cloudinary.config({
 export class CloudinaryService {
   async upload(dataString: string) {
     try {
-      return await cloudinary.uploader.upload(dataString, {
+      console.log('service data', dataString);
+      const url = await cloudinary.uploader.upload(dataString, {
         upload_preset: 'ml_default',
       });
+      console.log('service', url);
+      return url;
     } catch (error) {
       throw new UnprocessableEntityException('ESTO NO, EH!?');
     }

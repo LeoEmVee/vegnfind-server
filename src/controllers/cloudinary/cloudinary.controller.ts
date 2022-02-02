@@ -6,7 +6,9 @@ export class CloudinaryController {
   constructor(private readonly cloudinaryService: CloudinaryService) {}
 
   @Post()
-  getCloudinaryUrl(@Body() dataString: string) {
-    return this.cloudinaryService.upload(dataString);
+  getCloudinaryUrl(@Body() dataString: any) {
+    const url = this.cloudinaryService.upload(dataString.data);
+    console.log('controller', url);
+    return url;
   }
 }
