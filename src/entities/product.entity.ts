@@ -41,21 +41,30 @@ export class Product {
 
   @ManyToMany(() => Favourites, favourites => favourites.user, {
     onDelete: 'CASCADE',
+    cascade: ['insert', 'update'],
   })
   @JoinTable()
   favourites: Favourites;
 
-  @OneToMany(() => Review, review => review.product)
+  @OneToMany(() => Review, review => review.product, {
+    cascade: ['insert', 'update'],
+  })
   reviews: Review[];
 
-  @ManyToOne(() => Brand, brand => brand.products)
+  @ManyToOne(() => Brand, brand => brand.products, {
+    cascade: ['insert', 'update'],
+  })
   brand: Brand;
 
-  @ManyToMany(() => Shop, shop => shop.products, {onDelete: 'CASCADE'})
+  @ManyToMany(() => Shop, shop => shop.products, {
+    onDelete: 'CASCADE',
+    cascade: ['insert', 'update'],
+  })
   shops: Shop[];
 
   @ManyToOne(() => Category, category => category.products, {
     onDelete: 'CASCADE',
+    cascade: ['insert', 'update'],
   })
   categories: Category;
 }
