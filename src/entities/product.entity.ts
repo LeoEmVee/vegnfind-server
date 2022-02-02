@@ -14,6 +14,7 @@ import {Favourites} from './favourites.entity';
 import {Category} from './category.entity';
 import {Shop} from './shop.entity';
 import {Brand} from './brand.entity';
+import {truncateSync} from 'fs';
 
 @Entity()
 export class Product {
@@ -29,13 +30,13 @@ export class Product {
   @Column()
   thumbImg: string;
 
-  @Column('text', {array: true})
+  @Column('text', {array: true, nullable: true})
   images?: string[];
 
-  @Column('int')
+  @Column('int', {nullable: true})
   rating?: number;
 
-  @Column('int')
+  @Column('int', {nullable: true})
   userFavCount?: number;
 
   @ManyToMany(() => Favourites, favourites => favourites.user, {
