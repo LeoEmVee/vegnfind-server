@@ -3,6 +3,7 @@ import {InjectRepository} from '@nestjs/typeorm';
 import {Veggie} from 'src/entities/veggie.entity';
 import {Repository} from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import {error} from 'console';
 
 @Injectable()
 export class VeggieService {
@@ -13,9 +14,7 @@ export class VeggieService {
 
   async findOneByCondition(condition: any): Promise<Veggie> {
     try {
-      const user = await this.veggieRepository.findOneOrFail(condition);
-      user.password = null;
-      return user;
+      return await this.veggieRepository.findOneOrFail(condition);
     } catch (error) {
       throw new NotFoundException(error, "This Veggie doesn't exist");
     }
@@ -27,7 +26,7 @@ export class VeggieService {
       where: {email: user.email},
     });
     if (userExists) {
-      throw new ConflictException(null, 'This User already exists!');
+      throw new ConflictException('This User already exists!');
     }
 
     // if it doesn't exist, hash password and lowercase email
@@ -57,7 +56,7 @@ export class VeggieService {
   }
 
   async deleteOneByCondition(condition: any): Promise<Veggie> {
-    const veggie = await this.findOneByCondition({condition});
+    const veggie = await this.findOneByCondition(condition);
     return await this.veggieRepository.remove(veggie);
   }
 

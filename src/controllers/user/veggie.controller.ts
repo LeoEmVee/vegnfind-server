@@ -7,8 +7,10 @@ export class VeggieController {
   constructor(private readonly veggieService: VeggieService) {}
 
   @Post('find')
-  findUser(@Body() condition: string) {
-    return this.veggieService.findOneByCondition(condition);
+  async findUser(@Body() condition: string) {
+    const user = await this.veggieService.findOneByCondition(condition);
+    const {password, ...result} = user;
+    return result;
   }
 
   // POST IS ALWAYS HANDLED THROUGH AUTH.CONTROLLER
@@ -23,8 +25,8 @@ export class VeggieController {
   }
 
   @Delete()
-  deleteVeggie(@Body() id: string) {
-    return this.veggieService.deleteOneByCondition(id);
+  deleteVeggie(@Body() condition: string) {
+    return this.veggieService.deleteOneByCondition(condition);
   }
 
   // ONLY FOR DEVELOPMENT
