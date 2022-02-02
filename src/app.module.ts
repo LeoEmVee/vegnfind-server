@@ -21,6 +21,8 @@ import {JwtModule} from '@nestjs/jwt';
 import {ProductController} from './controllers/product/product.controller';
 import {ProductService} from './services/product/product.service';
 import {Product} from './entities/product.entity';
+import {CloudinaryController} from './controllers/cloudinary/cloudinary.controller';
+import {CloudinaryService} from './services/cloudinary/cloudinary.service';
 require('dotenv').config();
 
 @Module({
@@ -55,6 +57,7 @@ require('dotenv').config();
     EatController,
     AuthController,
     ProductController,
+    CloudinaryController,
   ],
   providers: [
     CategoryService,
@@ -64,6 +67,7 @@ require('dotenv').config();
     AuthService,
     LocalStrategy,
     ProductService,
+    CloudinaryService,
   ],
 })
 export class AppModule {}
