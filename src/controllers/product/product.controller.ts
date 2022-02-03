@@ -6,6 +6,16 @@ import {Product} from '../../entities/product.entity';
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
+  @Post('find')
+  findShop(@Body() condition: any) {
+    return this.productService.findOneByCondition(condition);
+  }
+
+  @Post('findall')
+  findAllProducts(@Body() condition: any) {
+    return this.productService.findAllByCondition(condition);
+  }
+
   @Post('create')
   createProduct(@Body() product: Product) {
     return this.productService.createOne(product);

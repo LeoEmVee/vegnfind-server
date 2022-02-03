@@ -11,9 +11,9 @@ export class ShopService {
     private shopRepository: Repository<Shop>,
   ) {}
 
-  async findOneById(id: string): Promise<Shop> {
+  async findOneByCondition(condition: any): Promise<Shop> {
     try {
-      return await this.shopRepository.findOneOrFail(id);
+      return await this.shopRepository.findOneOrFail(condition);
     } catch (error) {
       throw new NotFoundException(error, "This Shop doesn't exist");
     }
@@ -38,16 +38,17 @@ export class ShopService {
   async updateOne(shop: Shop): Promise<Shop> {
     const shopLow = {
       ...shop,
-      name: shop.name.toUpperCase(),
+      name: toTitleCase(shop.name),
       email: shop.email.toLowerCase(),
     };
-    const oldShop = await this.findOneById(shopLow.id);
+    const id = shop.id;
+    const oldShop = await this.findOneByCondition({id});
     const newShop = {...oldShop, ...shopLow};
     return this.shopRepository.save(newShop);
   }
 
-  async deleteOne(id: string): Promise<Shop> {
-    const shop = await this.findOneById(id);
+  async deleteOneByCondition(condition: any): Promise<Shop> {
+    const shop = await this.findOneByCondition(condition);
     return await this.shopRepository.remove(shop);
   }
 

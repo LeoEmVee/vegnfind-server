@@ -7,8 +7,8 @@ export class EatController {
   constructor(private readonly eatService: EatService) {}
 
   @Post('find')
-  findEat(@Body() id: string) {
-    return this.eatService.findOneById(id);
+  findEat(@Body() condition: any) {
+    return this.eatService.findOneByCondition(condition);
   }
 
   @Post('create')
@@ -32,8 +32,8 @@ export class EatController {
   }
 
   @Delete()
-  deleteEat(@Body() id: string) {
-    return this.eatService.deleteOne(id);
+  deleteEat(@Body() condition: any) {
+    return this.eatService.deleteOneByCondition(condition);
   }
 
   // ONLY FOR DEVELOPMENT

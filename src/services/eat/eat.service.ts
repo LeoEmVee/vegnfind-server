@@ -10,9 +10,9 @@ export class EatService {
     private eatRepository: Repository<Eat>,
   ) {}
 
-  async findOneById(id: string): Promise<Eat> {
+  async findOneByCondition(condition: any): Promise<Eat> {
     try {
-      return await this.eatRepository.findOneOrFail(id);
+      return await this.eatRepository.findOneOrFail(condition);
     } catch (error) {
       throw new NotFoundException(error, "This Eat doesn't exist");
     }
@@ -30,13 +30,14 @@ export class EatService {
   }
 
   async updateOne(eat: Eat): Promise<Eat> {
-    const oldEat = await this.findOneById(eat.id);
+    const id = eat.id;
+    const oldEat = await this.findOneByCondition({id});
     const newEat = {...oldEat, ...eat};
     return this.eatRepository.save(newEat);
   }
 
-  async deleteOne(id: string): Promise<Eat> {
-    const eat = await this.findOneById(id);
+  async deleteOneByCondition(condition: any): Promise<Eat> {
+    const eat = await this.findOneByCondition(condition);
     return await this.eatRepository.remove(eat);
   }
 

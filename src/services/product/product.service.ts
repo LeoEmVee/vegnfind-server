@@ -1,4 +1,4 @@
-import {ConflictException, Injectable} from '@nestjs/common';
+import {ConflictException, Injectable, NotFoundException} from '@nestjs/common';
 import {InjectRepository} from '@nestjs/typeorm';
 import {Repository} from 'typeorm';
 import {Product} from '../../entities/product.entity';
@@ -9,6 +9,22 @@ export class ProductService {
     @InjectRepository(Product)
     private productRepository: Repository<Product>,
   ) {}
+
+  async findOneByCondition(condition: any): Promise<Product> {
+    try {
+      return await this.productRepository.findOneOrFail(condition);
+    } catch (error) {
+      throw new NotFoundException(error, "This Shop doesn't exist");
+    }
+  }
+
+  async findAllByCondition(condition: any): Promise<Product[]> {
+    try {
+      return await this.productRepository.find();
+    } catch (error) {
+      throw new NotFoundException('No Products match the query');
+    }
+  }
 
   async createOne(product: Product): Promise<Product> {
     // check if Product already exists in db

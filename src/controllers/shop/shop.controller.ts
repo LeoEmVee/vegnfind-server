@@ -16,8 +16,8 @@ export class ShopController {
   constructor(private readonly shopService: ShopService) {}
 
   @Post('find')
-  findShop(@Body() id: string) {
-    return this.shopService.findOneById(id);
+  findShop(@Body() condition: any) {
+    return this.shopService.findOneByCondition(condition);
   }
 
   @Post('create')
@@ -31,8 +31,8 @@ export class ShopController {
   }
 
   @Delete()
-  deleteShop(@Body() id: string) {
-    return this.shopService.deleteOne(id);
+  deleteShop(@Body() condition: any) {
+    return this.shopService.deleteOneByCondition(condition);
   }
 
   // ONLY FOR DEVELOPMENT
