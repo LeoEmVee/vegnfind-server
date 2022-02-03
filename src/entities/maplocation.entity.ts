@@ -17,7 +17,7 @@ export class MapLocation {
   address: string;
 
   @Column()
-  zipCode: number;
+  zipCode: string;
 
   @Column()
   city: string;

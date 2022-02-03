@@ -13,21 +13,21 @@ export abstract class Business {
   @Column()
   description: string;
 
-  @Column()
+  @Column({nullable: true})
   email: string;
 
-  @Column()
+  @Column({nullable: true})
   telephone: number;
 
-  @Column('int')
+  @Column('int', {nullable: true})
   rating: number;
 
-  @Column('int')
+  @Column('int', {nullable: true})
   userFavCount: number;
 
   @Column()
   thumbImg: string;
 
-  @Column('text', {array: true})
+  @Column('text', {array: true, nullable: true})
   images: string[];
 }

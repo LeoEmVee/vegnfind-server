@@ -47,11 +47,13 @@ export class Product {
   favourites: Favourites;
 
   @OneToMany(() => Review, review => review.product, {
+    onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
   reviews: Review[];
 
   @ManyToOne(() => Brand, brand => brand.products, {
+    onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
   brand: Brand;

@@ -2,6 +2,7 @@ import {ConflictException, NotFoundException, Injectable} from '@nestjs/common';
 import {InjectRepository} from '@nestjs/typeorm';
 import {Shop} from 'src/entities/shop.entity';
 import {Repository} from 'typeorm';
+import {toTitleCase} from 'src/utils/helpers';
 
 @Injectable()
 export class ShopService {
@@ -19,18 +20,18 @@ export class ShopService {
   }
 
   async createOne(shop: Shop): Promise<Shop> {
-    const shopLow = {
+    const shopCheck = {
       ...shop,
-      name: shop.name.toUpperCase(),
+      name: toTitleCase(shop.name),
       email: shop.email.toLowerCase(),
     };
     const shopExists = await this.shopRepository.findOne(null, {
-      where: {name: shopLow.name},
+      where: {name: shopCheck.name},
     });
     if (shopExists) {
       throw new ConflictException(null, 'This Shop already exists!');
     }
-    const newShop = await this.shopRepository.create({...shopLow});
+    const newShop = await this.shopRepository.create({...shopCheck});
     return this.shopRepository.save(newShop);
   }
 
