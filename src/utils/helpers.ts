@@ -12,7 +12,7 @@ export function toTitleCase(str) {
   str = str.split(' ');
 
   for (let i = 0; i < str.length; i++) {
-    str = str[i].charAt(0).toUpperCase();
+    str[i].charAt(0).toUpperCase();
   }
 
   return str.join(' ');
