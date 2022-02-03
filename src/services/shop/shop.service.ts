@@ -1,7 +1,7 @@
 import {ConflictException, NotFoundException, Injectable} from '@nestjs/common';
 import {InjectRepository} from '@nestjs/typeorm';
 import {Shop} from 'src/entities/shop.entity';
-import {Repository} from 'typeorm';
+import {Like, Repository} from 'typeorm';
 import {toTitleCase} from 'src/utils/helpers';
 
 @Injectable()
@@ -19,12 +19,9 @@ export class ShopService {
     }
   }
 
-  async findAllByCondition(condition: any): Promise<Shop[]> {
+  async findAllBySearchTerm(searchTerm: string): Promise<Shop[]> {
     try {
-      return await this.shopRepository
-        .createQueryBuilder('shop')
-        .where('shop.name like :name', {name: `%${condition}%`})
-        .getMany();
+      return await this.shopRepository.find({name: Like(`%${searchTerm}%`)});
     } catch (error) {
       throw new NotFoundException('No Shops match the query');
     }

@@ -1,7 +1,7 @@
 import {ConflictException, NotFoundException, Injectable} from '@nestjs/common';
 import {InjectRepository} from '@nestjs/typeorm';
 import {Eat} from 'src/entities/eat.entity';
-import {Repository} from 'typeorm';
+import {Like, Repository} from 'typeorm';
 
 @Injectable()
 export class EatService {
@@ -18,9 +18,9 @@ export class EatService {
     }
   }
 
-  async findAllByCondition(condition: any): Promise<Eat[]> {
+  async findAllBySearchTerm(searchTerm: string): Promise<Eat[]> {
     try {
-      return await this.eatRepository.find(condition);
+      return await this.eatRepository.find({name: Like(`%${searchTerm}%`)});
     } catch (error) {
       throw new NotFoundException('No Restaurants match the query');
     }

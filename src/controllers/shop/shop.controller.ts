@@ -21,8 +21,8 @@ export class ShopController {
   }
 
   @Post('findall')
-  findAllShops(@Body() condition: any) {
-    return this.shopService.findAllByCondition(condition);
+  findShopsBySearchTerm(@Body('searchTerm') searchTerm: string) {
+    return this.shopService.findAllBySearchTerm(searchTerm);
   }
 
   @Post('create')
