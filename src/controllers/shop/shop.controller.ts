@@ -20,6 +20,11 @@ export class ShopController {
     return this.shopService.findOneByCondition(condition);
   }
 
+  @Post('findall')
+  findAllShops(@Body() condition: any) {
+    return this.shopService.findAllByCondition(condition);
+  }
+
   @Post('create')
   createShop(@Body() shop: Shop) {
     return this.shopService.createOne(shop);

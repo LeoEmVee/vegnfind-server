@@ -20,7 +20,7 @@ export class ProductService {
 
   async findAllByCondition(condition: any): Promise<Product[]> {
     try {
-      return await this.productRepository.find();
+      return await this.productRepository.find(condition);
     } catch (error) {
       throw new NotFoundException('No Products match the query');
     }

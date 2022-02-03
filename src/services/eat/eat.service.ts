@@ -18,6 +18,14 @@ export class EatService {
     }
   }
 
+  async findAllByCondition(condition: any): Promise<Eat[]> {
+    try {
+      return await this.eatRepository.find(condition);
+    } catch (error) {
+      throw new NotFoundException('No Restaurants match the query');
+    }
+  }
+
   async createOne(eat: Eat): Promise<Eat> {
     const eatExists = await this.eatRepository.findOne(null, {
       where: {name: eat.name},

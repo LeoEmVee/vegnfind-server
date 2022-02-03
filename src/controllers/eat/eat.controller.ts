@@ -11,6 +11,11 @@ export class EatController {
     return this.eatService.findOneByCondition(condition);
   }
 
+  @Post('findall')
+  findAllEats(@Body() condition: any) {
+    return this.eatService.findAllByCondition(condition);
+  }
+
   @Post('create')
   createEat(@Body() eat: Eat) {
     const eatLow = {

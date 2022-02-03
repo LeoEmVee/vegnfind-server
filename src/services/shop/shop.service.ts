@@ -19,6 +19,14 @@ export class ShopService {
     }
   }
 
+  async findAllByCondition(condition: any): Promise<Shop[]> {
+    try {
+      return await this.shopRepository.find(condition);
+    } catch (error) {
+      throw new NotFoundException('No Shops match the query');
+    }
+  }
+
   async createOne(shop: Shop): Promise<Shop> {
     const shopCheck = {
       ...shop,
