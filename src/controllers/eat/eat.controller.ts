@@ -12,8 +12,8 @@ export class EatController {
   }
 
   @Post('findall')
-  findAllEats(@Body() condition: any) {
-    return this.eatService.findAllByCondition(condition);
+  findAllEats(@Body('searchTerm') searchTerm: string) {
+    return this.eatService.findAllBySearchTerm(searchTerm);
   }
 
   @Post('create')

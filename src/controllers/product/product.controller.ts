@@ -12,8 +12,8 @@ export class ProductController {
   }
 
   @Post('findall')
-  findAllProducts(@Body() condition: any) {
-    return this.productService.findAllByCondition(condition);
+  findAllProducts(@Body('searchTerm') searchTerm: any) {
+    return this.productService.findAllBySearchTerm(searchTerm);
   }
 
   @Post('create')
