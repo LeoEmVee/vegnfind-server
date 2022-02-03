@@ -21,7 +21,10 @@ export class ShopService {
 
   async findAllByCondition(condition: any): Promise<Shop[]> {
     try {
-      return await this.shopRepository.find(condition);
+      return await this.shopRepository
+        .createQueryBuilder('shop')
+        .where('shop.name like :name', {name: `%${condition}%`})
+        .getMany();
     } catch (error) {
       throw new NotFoundException('No Shops match the query');
     }
