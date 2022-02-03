@@ -7,10 +7,10 @@ export class MapLocation {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({type: 'float'})
   latitude: number;
 
-  @Column()
+  @Column({type: 'float'})
   longitude: number;
 
   @Column()

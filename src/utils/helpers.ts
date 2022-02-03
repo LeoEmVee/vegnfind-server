@@ -10,10 +10,10 @@ export function toLowercaseValues(obj) {
 export function toTitleCase(str) {
   str = str.toLowerCase();
   str = str.split(' ');
-
   for (let i = 0; i < str.length; i++) {
-    str[i].charAt(0).toUpperCase();
+    let val = str[i].charAt(0);
+    val = str[i].charAt(0).toUpperCase();
+    str[i] = str[i].replace(str[i].charAt(0), val);
   }
-
   return str.join(' ');
 }
