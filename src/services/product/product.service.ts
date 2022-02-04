@@ -20,11 +20,21 @@ export class ProductService {
 
   async findAllBySearchTerm(searchTerm: string): Promise<Product[]> {
     try {
-      return await this.productRepository.query(`select distinct *
-      from product 
-      where LOWER(name) LIKE LOWER('%${searchTerm}%') JOIN brand ON product.brandId=brand.id `);
+      return await this.productRepository
+        .createQueryBuilder()
+        .innerJoin('product.brand', 'brand')
+        .where('product.name like :name', {name: `%${searchTerm}%`})
+        .getMany();
     } catch (error) {
       throw new NotFoundException('No Products match the query');
+    }
+  }
+
+  async findAllJoinBrand(): Promise<Product[]> {
+    try {
+      return await this.productRepository.find({relations: ['brand']});
+    } catch (error) {
+      throw new NotFoundException();
     }
   }
 

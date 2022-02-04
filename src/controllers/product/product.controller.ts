@@ -1,4 +1,4 @@
-import {Body, Controller, Post} from '@nestjs/common';
+import {Body, Controller, Get, Post} from '@nestjs/common';
 import {ProductService} from 'src/services/product/product.service';
 import {Product} from '../../entities/product.entity';
 
@@ -14,6 +14,11 @@ export class ProductController {
   @Post('findall')
   findAllProducts(@Body('searchTerm') searchTerm: any) {
     return this.productService.findAllBySearchTerm(searchTerm);
+  }
+
+  @Get('join')
+  findAllJoinBrand() {
+    return this.productService.findAllJoinBrand();
   }
 
   @Post('create')
