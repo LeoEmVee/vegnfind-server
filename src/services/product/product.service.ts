@@ -22,7 +22,7 @@ export class ProductService {
     try {
       return await this.productRepository.query(`select distinct *
       from product 
-      where LOWER(name) LIKE LOWER('%${searchTerm}%') INNER JOIN brand `);
+      where LOWER(name) LIKE LOWER('%${searchTerm}%') JOIN brand ON product.brandId=brand.id `);
     } catch (error) {
       throw new NotFoundException('No Products match the query');
     }
