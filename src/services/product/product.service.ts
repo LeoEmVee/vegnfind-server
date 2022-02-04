@@ -20,7 +20,9 @@ export class ProductService {
 
   async findAllBySearchTerm(searchTerm: string): Promise<Product[]> {
     try {
-      return await this.productRepository.find({name: Like(`%${searchTerm}%`)});
+      return await this.productRepository.query(`select *
+      from eat
+      where LOWER(name) LIKE LOWER('%${searchTerm}%')`);
     } catch (error) {
       throw new NotFoundException('No Products match the query');
     }
