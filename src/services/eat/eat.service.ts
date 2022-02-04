@@ -20,7 +20,7 @@ export class EatService {
 
   async findAllBySearchTerm(searchTerm: string): Promise<Eat[]> {
     try {
-      return await this.eatRepository.query(`select *
+      return await this.eatRepository.query(`select distinct *
       from eat
       where LOWER(name) LIKE LOWER('%${searchTerm}%')`);
     } catch (error) {
