@@ -21,7 +21,7 @@ export class ShopService {
 
   async findAllBySearchTerm(searchTerm: string): Promise<Shop[]> {
     try {
-      return await this.shopRepository.query(`select *
+      return await this.shopRepository.query(`select distinct *
       from eat
       where LOWER(name) LIKE LOWER('%${searchTerm}%')`);
     } catch (error) {
