@@ -3,6 +3,10 @@ import {VeggieService} from '../user/veggie.service';
 import {JwtService} from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 
+interface Payload {
+  username: string;
+}
+
 @Injectable()
 export class AuthService {
   constructor(
@@ -21,9 +25,15 @@ export class AuthService {
   }
 
   async login(user: any) {
-    const payload = {username: user.username};
+    const payload: Payload = {username: user.username};
     return {
       access_token: await this.jwtService.sign(payload),
     };
+  }
+
+  async validateToken(token: string) {
+    const payload = this.jwtService.decode(token);
+    const userExists = await this.veggieService.findOneByCondition(payload);
+    return userExists ? userExists : null;
   }
 }
