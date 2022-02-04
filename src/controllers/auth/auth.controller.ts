@@ -25,9 +25,7 @@ export class AuthController {
 
   @UseGuards(LocalAuthGuard) // Local guard keeps the route accessible only through validation
   @Post('login')
-  async login(@Request() req) {
-    const {username} = req;
-    const validatedUser = await this.veggieService.findOneByCondition(username);
-    return await this.authService.login(validatedUser);
+  async login(@Request() user) {
+    return await this.authService.login(user);
   }
 }
