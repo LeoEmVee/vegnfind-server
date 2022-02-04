@@ -27,15 +27,9 @@ export class AuthService {
   }
 
   async login(user: any) {
-    const payload: Payload = {username: user.username};
+    const payload = {user};
     return {
       access_token: await this.jwtService.sign(payload),
     };
-  }
-
-  async validateToken(token: string) {
-    const payload = this.jwtService.decode(token);
-    const userExists = await this.veggieService.findOneByCondition(payload);
-    return userExists ? userExists : null;
   }
 }
