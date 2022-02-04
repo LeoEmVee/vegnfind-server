@@ -21,8 +21,8 @@ export class ProductService {
   async findAllBySearchTerm(searchTerm: string): Promise<Product[]> {
     try {
       return await this.productRepository.query(`select distinct *
-      from product
-      where LOWER(name) LIKE LOWER('%${searchTerm}%')`);
+      from product 
+      where LOWER(name) LIKE LOWER('%${searchTerm}%') INNER JOIN brand `);
     } catch (error) {
       throw new NotFoundException('No Products match the query');
     }

@@ -64,9 +64,9 @@ export class Product {
   })
   shops: Shop[];
 
-  @ManyToOne(() => Category, category => category.products, {
+  @ManyToMany(() => Category, category => category.products, {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
-  categories: Category;
+  categories: Category[];
 }
