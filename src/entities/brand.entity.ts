@@ -17,12 +17,21 @@ export class Brand {
   @Column()
   name: string;
 
-  @OneToMany(() => Product, product => product.brand)
+  @OneToMany(() => Product, product => product.brand, {
+    onDelete: 'CASCADE',
+    cascade: ['insert', 'update'],
+  })
   products: Product[];
 
-  @ManyToMany(() => Shop, shop => shop.brands, {onDelete: 'CASCADE'})
+  @ManyToMany(() => Shop, shop => shop.brands, {
+    onDelete: 'CASCADE',
+    cascade: ['insert', 'update'],
+  })
   shops: Shop[];
 
-  @ManyToMany(() => Eat, eat => eat.brands, {onDelete: 'CASCADE'})
+  @ManyToMany(() => Eat, eat => eat.brands, {
+    onDelete: 'CASCADE',
+    cascade: ['insert', 'update'],
+  })
   eats: Eat[];
 }
