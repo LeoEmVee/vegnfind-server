@@ -10,12 +10,14 @@ import {AuthService} from '../../services/auth/auth.service';
 import {Veggie} from '../../entities/veggie.entity';
 import {VeggieService} from 'src/services/user/veggie.service';
 import {LocalAuthGuard} from '../../auth/local-auth.guard';
+import {JwtService} from '@nestjs/jwt';
 
 @Controller()
 export class AuthController {
   constructor(
     private readonly veggieService: VeggieService,
     private readonly authService: AuthService,
+    private jwtService: JwtService,
   ) {}
 
   @Post('register')
@@ -23,14 +25,14 @@ export class AuthController {
     return this.veggieService.createOne(user);
   }
 
-  @UseGuards(LocalAuthGuard) // Local guard keeps the route accessible only through validation
-  @Post('login')
-  async login(@Request() user) {
-    return await this.authService.login(user);
+  @Post('validate')
+  async validate(@Body() data: any) {
+    return this.jwtService.decode(data.access_token);
   }
 
-  @Post('validate')
-  async validate(@Body() token: string) {
-    return this.authService.validateToken(token);
+  // @UseGuards(LocalAuthGuard) // Local guard keeps the route accessible only through validation
+  @Post('login')
+  async login(@Body() user: any) {
+    return await this.authService.login(user);
   }
 }
