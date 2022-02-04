@@ -17,7 +17,7 @@ export class AuthService {
       const {password, ...result} = user;
       return result;
     } else {
-      return null;
+      throw new UnauthorizedException('Invalid credentials!');
     }
   }
 
