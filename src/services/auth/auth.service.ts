@@ -15,7 +15,9 @@ export class AuthService {
   ) {}
 
   async validateUser(username: string, password: string): Promise<any> {
-    const user = await this.veggieService.findOneByCondition({username});
+    const user = await this.veggieService.findOneByCondition({
+      username: username,
+    });
     if (user && bcrypt.compare(password, user.password)) {
       const {password, ...result} = user;
       return result;
