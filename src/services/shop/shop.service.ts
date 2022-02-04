@@ -21,7 +21,9 @@ export class ShopService {
 
   async findAllBySearchTerm(searchTerm: string): Promise<Shop[]> {
     try {
-      return await this.shopRepository.find({name: Like(`%${searchTerm}%`)});
+      return await this.shopRepository.query(`select *
+      from eat
+      where LOWER(name) LIKE LOWER('%${searchTerm}%')`);
     } catch (error) {
       throw new NotFoundException('No Shops match the query');
     }
