@@ -11,7 +11,7 @@ import {Veggie} from '../../entities/veggie.entity';
 import {VeggieService} from 'src/services/user/veggie.service';
 import {LocalAuthGuard} from '../../auth/local-auth.guard';
 
-@Controller('veggie')
+@Controller()
 export class AuthController {
   constructor(
     private readonly veggieService: VeggieService,
