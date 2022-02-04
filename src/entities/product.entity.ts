@@ -58,9 +58,6 @@ export class Product {
   })
   brand: Brand;
 
-  @Column()
-  brandId: string[];
-
   @ManyToMany(() => Shop, shop => shop.products, {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
