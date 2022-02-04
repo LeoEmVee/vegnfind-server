@@ -1,5 +1,4 @@
 import {Injectable, UnauthorizedException} from '@nestjs/common';
-import {Veggie} from '../../entities/veggie.entity';
 import {VeggieService} from '../user/veggie.service';
 import {JwtService} from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
@@ -22,7 +21,7 @@ export class AuthService {
   }
 
   async login(user: any) {
-    const payload = {username: user.username, sub: user.id};
+    const payload = {username: user.username};
     return {
       access_token: await this.jwtService.sign(payload),
     };
