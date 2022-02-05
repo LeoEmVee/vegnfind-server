@@ -16,11 +16,6 @@ export class ProductController {
     return this.productService.findAllBySearchTerm(searchTerm);
   }
 
-  @Get('join')
-  findAllJoinBrand() {
-    return this.productService.findAllJoinBrand();
-  }
-
   @Post('create')
   createProduct(@Body() product: Product) {
     return this.productService.createOne(product);

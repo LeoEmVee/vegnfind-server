@@ -14,7 +14,6 @@ import {Favourites} from './favourites.entity';
 import {Category} from './category.entity';
 import {Shop} from './shop.entity';
 import {Brand} from './brand.entity';
-import {truncateSync} from 'fs';
 
 @Entity()
 export class Product {
@@ -68,5 +67,6 @@ export class Product {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
+  @JoinTable()
   categories: Category[];
 }

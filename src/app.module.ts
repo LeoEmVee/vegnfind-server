@@ -37,9 +37,13 @@ require('dotenv').config();
       username: process.env.USERNAME,
       password: process.env.PASSWORD,
       database: process.env.DATABASE,
-      synchronize: true,
+      synchronize: true, // CHANGE IN PRODUCTION
       entities: [join(__dirname, '**', '*.entity.{ts,js}')],
       ssl: true,
+      migrations: ['dist/src/migrations/*.js'],
+      cli: {
+        migrationsDir: 'src/migrations',
+      },
       extra: {
         ssl: {
           rejectUnauthorized: false,

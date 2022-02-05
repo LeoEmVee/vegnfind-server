@@ -4,16 +4,16 @@ import {Business} from './abstract/business';
 import {Brand} from './brand.entity';
 import {Category} from './category.entity';
 import {Favourites} from './favourites.entity';
-import {MapLocation} from './maplocation.entity';
+import {Maplocation} from './maplocation.entity';
 import {Review} from './review.entity';
 
 @Entity()
 export class Eat extends Business {
-  @OneToOne(() => MapLocation, mapLocation => mapLocation.eat, {
+  @OneToOne(() => Maplocation, maplocation => maplocation.eat, {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
-  location: MapLocation;
+  location: Maplocation;
 
   @OneToMany(() => Review, review => review.eat, {
     onDelete: 'CASCADE',
