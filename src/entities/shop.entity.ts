@@ -7,7 +7,7 @@ import {
   JoinTable,
 } from 'typeorm';
 import {Brand} from './brand.entity';
-import {MapLocation} from './maplocation.entity';
+import {Maplocation} from './maplocation.entity';
 import {Business} from './abstract/business';
 import {Category} from './category.entity';
 import {Product} from './product.entity';
@@ -16,11 +16,11 @@ import {Favourites} from './favourites.entity';
 
 @Entity()
 export class Shop extends Business {
-  @OneToOne(() => MapLocation, mapLocation => mapLocation.shop, {
+  @OneToOne(() => Maplocation, maplocation => maplocation.shop, {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
-  location: MapLocation;
+  location: Maplocation;
 
   @OneToMany(() => Review, review => review.shop, {
     onDelete: 'CASCADE',

@@ -21,20 +21,21 @@ export class ProductService {
   async findAllBySearchTerm(searchTerm: string): Promise<Product[]> {
     try {
       return await this.productRepository
-        .createQueryBuilder()
-        .innerJoin('product.brand', 'brand')
-        .where('product.name like :name', {name: `%${searchTerm}%`})
+        .createQueryBuilder('product')
+        .leftJoinAndSelect(
+          'product.favourites',
+          'product_favourites_favourites',
+        )
+        .leftJoinAndSelect('product.reviews', 'review')
+        .leftJoinAndSelect('product.categories', 'product_categories_category')
+        .leftJoinAndSelect('product.shops', 'shop_products_product')
+        .leftJoinAndSelect('product.brand', 'brand')
+        .where('LOWER(product.name) like LOWER(:name)', {
+          name: `%${searchTerm}%`,
+        })
         .getMany();
     } catch (error) {
       throw new NotFoundException('No Products match the query');
-    }
-  }
-
-  async findAllJoinBrand(): Promise<Product[]> {
-    try {
-      return await this.productRepository.find({relations: ['brand']});
-    } catch (error) {
-      throw new NotFoundException();
     }
   }
 
