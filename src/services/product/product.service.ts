@@ -33,6 +33,7 @@ export class ProductService {
         .where('LOWER(product.name) like LOWER(:name)', {
           name: `%${searchTerm}%`,
         })
+        .orderBy('product.name', 'ASC')
         .getMany();
     } catch (error) {
       throw new NotFoundException('No Products match the query');

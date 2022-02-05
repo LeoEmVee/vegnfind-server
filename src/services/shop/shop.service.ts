@@ -29,6 +29,7 @@ export class ShopService {
         .where('LOWER(shop.name) like LOWER(:name)', {
           name: `%${searchTerm}%`,
         })
+        .orderBy('shop.name', 'ASC')
         .getMany();
     } catch (error) {
       throw new NotFoundException('No Shops match the query');

@@ -28,6 +28,7 @@ export class EatService {
         .leftJoinAndSelect('eat.favourites', 'eat_favourites_favourites')
         .leftJoinAndSelect('eat.brands', 'brand')
         .where('LOWER(eat.name) like LOWER(:name)', {name: `%${searchTerm}%`})
+        .orderBy('eat.name', 'ASC')
         .getMany();
     } catch (error) {
       throw new NotFoundException('No Restaurants match the query');
