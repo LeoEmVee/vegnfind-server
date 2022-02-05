@@ -21,9 +21,15 @@ export class ShopService {
 
   async findAllBySearchTerm(searchTerm: string): Promise<Shop[]> {
     try {
-      return await this.shopRepository.query(`select distinct *
-      from shop
-      where LOWER(name) LIKE LOWER('%${searchTerm}%')`);
+      return await this.shopRepository
+        .createQueryBuilder('shop')
+        .leftJoinAndSelect('eat.reviews', 'review')
+        .leftJoinAndSelect('shop.categories', 'shop_categories_category')
+        .leftJoinAndSelect('shop.brands', 'brand')
+        .where('LOWER(shop.name) like LOWER(:name)', {
+          name: `%${searchTerm}%`,
+        })
+        .getMany();
     } catch (error) {
       throw new NotFoundException('No Shops match the query');
     }

@@ -1,38 +1,38 @@
 import {ConflictException, NotFoundException, Injectable} from '@nestjs/common';
 import {InjectRepository} from '@nestjs/typeorm';
-import {MapLocation} from 'src/entities/maplocation.entity';
+import {Maplocation} from 'src/entities/maplocation.entity';
 import {Repository} from 'typeorm';
 
 @Injectable()
 export class LocationService {
   constructor(
-    @InjectRepository(MapLocation)
-    private locationRepository: Repository<MapLocation>,
+    @InjectRepository(Maplocation)
+    private locationRepository: Repository<Maplocation>,
   ) {}
 
-  async findOneByCondition(condition: any): Promise<MapLocation> {
+  async findOneByCondition(condition: any): Promise<Maplocation> {
     try {
       return await this.locationRepository.findOneOrFail(condition);
     } catch (error) {
-      throw new NotFoundException(error, "This Location doesn't exist");
+      throw new NotFoundException(error, "This location doesn't exist");
     }
   }
 
-  async createOne(maplocation: MapLocation): Promise<MapLocation> {
-    // check if Location already exists in db
+  async createOne(maplocation: Maplocation): Promise<Maplocation> {
+    // check if location already exists in db
     const locationExists = await this.locationRepository.findOne(null, {
       where: {latitude: maplocation.latitude, longitude: maplocation.longitude},
     });
     if (locationExists) {
-      throw new ConflictException('This Location already exists!');
+      throw new ConflictException('This location already exists!');
     }
 
-    // create new instance of Location and save into db
-    const newLocation = await this.locationRepository.create({...maplocation});
-    return this.locationRepository.save(newLocation);
+    // create new instance of location and save into db
+    const newlocation = await this.locationRepository.create({...maplocation});
+    return this.locationRepository.save(newlocation);
   }
 
-  async updateOne(maplocation: MapLocation): Promise<MapLocation> {
+  async updateOne(maplocation: Maplocation): Promise<Maplocation> {
     // TODO add enforcing case:
     // const maplocationLow = {
     //   ...maplocation,
@@ -41,14 +41,14 @@ export class LocationService {
 
     // find the stored location in db
     const id = maplocation.id;
-    const oldLocation = await this.findOneByCondition({id});
+    const oldlocation = await this.findOneByCondition({id});
 
     // create new user with updated properties and save it to db
-    const newLocation = {...oldLocation, ...maplocation};
-    return this.locationRepository.save(newLocation);
+    const newlocation = {...oldlocation, ...maplocation};
+    return this.locationRepository.save(newlocation);
   }
 
-  async deleteOneByCondition(condition: any): Promise<MapLocation> {
+  async deleteOneByCondition(condition: any): Promise<Maplocation> {
     const maplocation = await this.findOneByCondition(condition);
     return await this.locationRepository.remove(maplocation);
   }
@@ -58,7 +58,7 @@ export class LocationService {
     await this.locationRepository
       .createQueryBuilder()
       .delete()
-      .from(MapLocation)
+      .from(Maplocation)
       .execute();
   }
 }

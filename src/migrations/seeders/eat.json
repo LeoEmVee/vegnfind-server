@@ -1,0 +1,125 @@
+[
+  {
+    "isVegan": "true",
+    "name": "Vegan Palace",
+    "description": "a vegan place",
+    "email": "vegan@palace.com",
+    "telephone": 56041208,
+    "rating": 5,
+    "userFavCount": 10,
+    "thumbImg": "someUrl",
+    "location": {
+      "latitude": 20,
+      "longitude": 20,
+      "address": "myplace",
+      "zipCode": "ZipZip",
+      "city": "Barcelona",
+      "region": "Clot",
+      "country": "Cat"
+    },
+    "brands": [
+      {"name": "new cool veggie brand"},
+      {"name": "another veggie brand"}
+    ],
+    "reviews": [
+      {
+        "text": "this place is great",
+        "rating": 5
+      },
+      {
+        "text": "awesome",
+        "rating": 5
+      }
+    ],
+    "categories": [
+      {
+        "name": "first category"
+      },
+      {
+        "name": "second category"
+      }
+    ],
+    "favourites": []
+  },
+  {
+    "isVegan": "false",
+    "name": "Vegetarian House",
+    "description": "a veggie sitio",
+    "email": "veggiesitio@house.com",
+    "telephone": 456421,
+    "rating": 4,
+    "userFavCount": 8,
+    "thumbImg": "otherUrl",
+    "location": {
+      "latitude": 19,
+      "longitude": 19,
+      "address": "yourplace",
+      "zipCode": "ZipZap",
+      "city": "Barcelona",
+      "region": "Sans",
+      "country": "Cat"
+    },
+    "brands": [{"name": "cool veggie brand"}, {"name": "old veggie brand"}],
+    "reviews": [
+      {
+        "text": "this place sucks",
+        "rating": 2
+      },
+      {
+        "text": "great",
+        "rating": 5
+      }
+    ],
+    "categories": [
+      {
+        "name": "first category"
+      },
+      {
+        "name": "second category"
+      }
+    ],
+    "favourites": []
+  },
+  {
+    "isVegan": "false",
+    "name": "VeggyPizzy",
+    "description": "vegan pizza",
+    "email": "veggypi@za.com",
+    "telephone": 5646541,
+    "rating": 3,
+    "userFavCount": 9,
+    "thumbImg": "pizzaUrl",
+    "location": {
+      "latitude": 21,
+      "longitude": 21,
+      "address": "theplace",
+      "zipCode": "ZoopZap",
+      "city": "Barcelona",
+      "region": "Gracia",
+      "country": "Cat"
+    },
+    "brands": [
+      {"name": "normal veggie brand"},
+      {"name": "another veggie brand"}
+    ],
+    "reviews": [
+      {
+        "text": "this place is great",
+        "rating": 5
+      },
+      {
+        "text": "this sucks",
+        "rating": 2
+      }
+    ],
+    "categories": [
+      {
+        "name": "first category"
+      },
+      {
+        "name": "second category"
+      }
+    ],
+    "favourites": []
+  }
+]

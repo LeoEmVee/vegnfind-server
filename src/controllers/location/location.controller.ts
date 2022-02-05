@@ -1,13 +1,13 @@
 import {Body, Controller, Delete, Get, Post, Put} from '@nestjs/common';
-import {MapLocation} from 'src/entities/maplocation.entity';
+import {Maplocation} from 'src/entities/maplocation.entity';
 import {LocationService} from '../../services/location/location.service';
 
 @Controller('location')
-export class LocationController {
+export class locationController {
   constructor(private readonly locationService: LocationService) {}
 
   @Post('find')
-  async findLocation(@Body() condition: string) {
+  async findlocation(@Body() condition: string) {
     const maplocation = await this.locationService.findOneByCondition(
       condition,
     );
@@ -16,17 +16,17 @@ export class LocationController {
 
   // POST IS ALWAYS HANDLED THROUGH AUTH.CONTROLLER
   @Post('create')
-  createLocation(@Body() maplocation: MapLocation) {
+  createlocation(@Body() maplocation: Maplocation) {
     return this.locationService.createOne(maplocation);
   }
 
   @Put()
-  updateLocation(@Body() maplocation: MapLocation) {
+  updatelocation(@Body() maplocation: Maplocation) {
     return this.locationService.updateOne(maplocation);
   }
 
   @Delete()
-  deleteLocation(@Body() condition: string) {
+  deletelocation(@Body() condition: string) {
     return this.locationService.deleteOneByCondition(condition);
   }
 

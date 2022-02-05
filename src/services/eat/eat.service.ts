@@ -1,7 +1,7 @@
 import {ConflictException, NotFoundException, Injectable} from '@nestjs/common';
 import {InjectRepository} from '@nestjs/typeorm';
 import {Eat} from 'src/entities/eat.entity';
-import {Like, Repository} from 'typeorm';
+import {Repository} from 'typeorm';
 
 @Injectable()
 export class EatService {
@@ -20,9 +20,15 @@ export class EatService {
 
   async findAllBySearchTerm(searchTerm: string): Promise<Eat[]> {
     try {
-      return await this.eatRepository.query(`select distinct *
-      from eat
-      where LOWER(name) LIKE LOWER('%${searchTerm}%')`);
+      return await this.eatRepository
+        .createQueryBuilder('eat')
+        // .leftJoinAndSelect('eat.location', 'maplocation')
+        .leftJoinAndSelect('eat.reviews', 'review')
+        .leftJoinAndSelect('eat.categories', 'eat_categories_category')
+        .leftJoinAndSelect('eat.favourites', 'eat_favourites_favourites')
+        .leftJoinAndSelect('eat.brands', 'brand')
+        .where('LOWER(eat.name) like LOWER(:name)', {name: `%${searchTerm}%`})
+        .getMany();
     } catch (error) {
       throw new NotFoundException('No Restaurants match the query');
     }

@@ -1,4 +1,11 @@
-import {Body, Controller, Delete, Get, Post, Put} from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Post,
+  Put,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import {Eat} from 'src/entities/eat.entity';
 import {EatService} from 'src/services/eat/eat.service';
 
@@ -18,12 +25,16 @@ export class EatController {
 
   @Post('create')
   createEat(@Body() eat: Eat) {
-    const eatLow = {
-      ...eat,
-      name: eat.name.toUpperCase(),
-      email: eat.email.toLowerCase(),
-    };
-    return this.eatService.createOne(eatLow);
+    try {
+      const eatLow = {
+        ...eat,
+        name: eat.name.toUpperCase(),
+        email: eat.email.toLowerCase(),
+      };
+      return this.eatService.createOne(eatLow);
+    } catch (error) {
+      throw new UnprocessableEntityException();
+    }
   }
 
   @Put()

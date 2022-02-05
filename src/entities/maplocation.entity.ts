@@ -3,7 +3,7 @@ import {Eat} from './eat.entity';
 import {Shop} from './shop.entity';
 
 @Entity()
-export class MapLocation {
+export class Maplocation {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
