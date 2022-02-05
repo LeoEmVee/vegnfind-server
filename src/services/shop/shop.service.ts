@@ -23,7 +23,7 @@ export class ShopService {
     try {
       return await this.shopRepository
         .createQueryBuilder('shop')
-        .leftJoinAndSelect('eat.reviews', 'review')
+        .leftJoinAndSelect('shop.reviews', 'review')
         .leftJoinAndSelect('shop.categories', 'shop_categories_category')
         .leftJoinAndSelect('shop.brands', 'brand')
         .where('LOWER(shop.name) like LOWER(:name)', {
