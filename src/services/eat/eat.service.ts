@@ -1,4 +1,9 @@
-import {ConflictException, NotFoundException, Injectable} from '@nestjs/common';
+import {
+  ConflictException,
+  NotFoundException,
+  Injectable,
+  BadRequestException,
+} from '@nestjs/common';
 import {InjectRepository} from '@nestjs/typeorm';
 import {Eat} from 'src/entities/eat.entity';
 import {Repository} from 'typeorm';
@@ -40,7 +45,7 @@ export class EatService {
       where: {name: eat.name},
     });
     if (eatExists) {
-      throw new ConflictException(null, 'This Eat already exists!');
+      throw new ConflictException(eatExists, 'This Eat already exists!');
     }
     const newEat = await this.eatRepository.create({...eat});
     return this.eatRepository.save(newEat);

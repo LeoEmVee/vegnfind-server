@@ -51,7 +51,10 @@ export class ProductService {
       where: {name: product.name},
     });
     if (productExists) {
-      throw new ConflictException('This Product already exists!');
+      throw new ConflictException(
+        productExists,
+        'This Product already exists!',
+      );
     }
     // create new instance of Product and save into db
     const newProduct = await this.productRepository.create({...product});
