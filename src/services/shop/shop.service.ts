@@ -51,7 +51,7 @@ export class ShopService {
       where: {name: shopCheck.name},
     });
     if (shopExists) {
-      throw new ConflictException(null, 'This Shop already exists!');
+      throw new ConflictException(shopExists, 'This Shop already exists!');
     }
     const newShop = await this.shopRepository.create({...shopCheck});
     return this.shopRepository.save(newShop);
