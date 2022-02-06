@@ -31,7 +31,7 @@ export class EatService {
         .orderBy('eat.name', 'ASC')
         .getMany();
     } catch (error) {
-      throw new NotFoundException('No Restaurants match the query');
+      throw new BadRequestException(error, 'Incorrect find condition.');
     }
   }
 
@@ -54,8 +54,12 @@ export class EatService {
   }
 
   async deleteOneByCondition(condition: any): Promise<Eat> {
-    const eat = await this.findOneByCondition(condition);
-    return await this.eatRepository.remove(eat);
+    try {
+      const eat = await this.findOneByCondition(condition);
+      return await this.eatRepository.remove(eat);
+    } catch (error) {
+      throw new NotFoundException(error, "Couldn't delete, entry not found.");
+    }
   }
 
   // ONLY FOR DEVELOPMENT
