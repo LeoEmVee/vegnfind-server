@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Post} from '@nestjs/common';
+import {Body, Controller, Delete, Get, Post} from '@nestjs/common';
 import {ProductService} from 'src/services/product/product.service';
 import {Product} from '../../entities/product.entity';
 
@@ -19,5 +19,10 @@ export class ProductController {
   @Post('create')
   createProduct(@Body() product: Product) {
     return this.productService.createOne(product);
+  }
+
+  @Delete()
+  deleteShop(@Body() condition: any) {
+    return this.productService.deleteOneByCondition(condition);
   }
 }

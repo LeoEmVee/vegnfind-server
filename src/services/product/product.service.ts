@@ -1,6 +1,11 @@
-import {ConflictException, Injectable, NotFoundException} from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import {InjectRepository} from '@nestjs/typeorm';
-import {Like, Repository} from 'typeorm';
+import {Repository} from 'typeorm';
 import {Product} from '../../entities/product.entity';
 
 @Injectable()
@@ -36,7 +41,7 @@ export class ProductService {
         .orderBy('product.name', 'ASC')
         .getMany();
     } catch (error) {
-      throw new NotFoundException('No Products match the query');
+      throw new BadRequestException(error, 'Incorrect find condition.');
     }
   }
 
@@ -51,5 +56,14 @@ export class ProductService {
     // create new instance of Product and save into db
     const newProduct = await this.productRepository.create({...product});
     return this.productRepository.save(newProduct);
+  }
+
+  async deleteOneByCondition(condition: any): Promise<Product> {
+    try {
+      const product = await this.findOneByCondition(condition);
+      return await this.productRepository.remove(product);
+    } catch (error) {
+      throw new NotFoundException(error, "Couldn't delete, entry not found.");
+    }
   }
 }
