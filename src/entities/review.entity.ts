@@ -15,15 +15,27 @@ export class Review {
   @Column()
   rating: number;
 
-  @ManyToOne(() => Veggie, veggie => veggie.reviews)
+  @ManyToOne(() => Veggie, veggie => veggie.reviews, {
+    onDelete: 'CASCADE',
+    cascade: ['insert', 'update'],
+  })
   user: Veggie;
 
-  @ManyToOne(() => Product, product => product.reviews)
+  @ManyToOne(() => Product, product => product.reviews, {
+    onDelete: 'CASCADE',
+    cascade: ['insert', 'update'],
+  })
   product: Product;
 
-  @ManyToOne(() => Shop, shop => shop.reviews) // if I use the Business abstract for the OneToMany, we can make Review.shop and Review.eat into a single Review.business
+  @ManyToOne(() => Shop, shop => shop.reviews, {
+    onDelete: 'CASCADE',
+    cascade: ['insert', 'update'],
+  }) // if I use the Business abstract for the OneToMany, we can make Review.shop and Review.eat into a single Review.business
   shop: Shop;
 
-  @ManyToOne(() => Eat, eat => eat.reviews)
+  @ManyToOne(() => Eat, eat => eat.reviews, {
+    onDelete: 'CASCADE',
+    cascade: ['insert', 'update'],
+  })
   eat: Eat;
 }
