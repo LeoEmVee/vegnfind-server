@@ -35,11 +35,11 @@ export class EatService {
     try {
       return await this.eatRepository
         .createQueryBuilder('eat')
-        // .leftJoinAndSelect('eat.location', 'maplocation')
+        .leftJoinAndSelect('eat.favourites', 'favourites_to_eat')
+        .leftJoinAndSelect('eat.categories', 'category_to_eat')
+        .leftJoinAndSelect('eat.brands', 'eat_to_brand')
         .leftJoinAndSelect('eat.reviews', 'review')
-        .leftJoinAndSelect('eat.categories', 'eat_categories_category')
-        .leftJoinAndSelect('eat.favourites', 'eat_favourites_favourites')
-        .leftJoinAndSelect('eat.brands', 'brand')
+        .leftJoinAndSelect('eat.location', 'maplocation')
         .where('LOWER(eat.name) like LOWER(:name)', {name: `%${searchTerm}%`})
         .orderBy('eat.name', 'ASC')
         .getMany();
