@@ -22,20 +22,20 @@ export class Category {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
-  @JoinTable()
+  @JoinTable({name: 'category_to_product'})
   products?: Product[];
 
   @ManyToMany(() => Shop, shop => shop.categories, {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
-  @JoinTable()
+  @JoinTable({name: 'category_to_shop'})
   shops?: Shop[];
 
   @ManyToMany(() => Eat, eat => eat.categories, {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
-  @JoinTable()
+  @JoinTable({name: 'category_to_eat'})
   eats?: Eat[];
 }

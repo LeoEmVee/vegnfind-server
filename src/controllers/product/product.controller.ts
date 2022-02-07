@@ -25,4 +25,9 @@ export class ProductController {
   deleteShop(@Body() condition: any) {
     return this.productService.deleteOneByCondition(condition);
   }
+
+  @Delete('table')
+  delelteTable() {
+    return this.productService.dropTable();
+  }
 }
