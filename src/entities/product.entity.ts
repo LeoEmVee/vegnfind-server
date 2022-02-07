@@ -42,31 +42,31 @@ export class Product {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
-  favourites: Favourites;
+  favourites?: Favourites;
 
   @OneToMany(() => Review, review => review.product, {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
   @JoinColumn({name: 'reviews'})
-  reviews: Review[];
+  reviews?: Review[];
 
   @ManyToOne(() => Brand, brand => brand.products, {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
   @JoinColumn({name: 'brand'})
-  brand: Brand;
+  brand?: Brand;
 
   @ManyToMany(() => Shop, shop => shop.products, {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
-  shops: Shop[];
+  shops?: Shop[];
 
   @ManyToMany(() => Category, category => category.products, {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
-  categories: Category[];
+  categories?: Category[];
 }

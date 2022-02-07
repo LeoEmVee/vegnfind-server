@@ -21,6 +21,7 @@ export class Shop extends Business {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
+  @JoinColumn({name: 'location'})
   location: Maplocation;
 
   @OneToMany(() => Review, review => review.shop, {
@@ -28,31 +29,31 @@ export class Shop extends Business {
     cascade: ['insert', 'update'],
   })
   @JoinColumn({name: 'reviews'})
-  reviews: Review[];
+  reviews?: Review[];
 
   @ManyToMany(() => Product, product => product.shops, {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
   @JoinTable()
-  products: Product[];
+  products?: Product[];
 
   @ManyToMany(() => Category, category => category.shops, {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
-  categories: Category[];
+  categories?: Category[];
 
   @ManyToMany(() => Favourites, favourites => favourites.shopping, {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
-  favourites: Favourites[];
+  favourites?: Favourites[];
 
   @ManyToMany(() => Brand, brand => brand.shops, {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
   @JoinTable()
-  brands: Brand[];
+  brands?: Brand[];
 }

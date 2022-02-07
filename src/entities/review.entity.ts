@@ -25,17 +25,17 @@ export class Review {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
-  product: Product;
+  product?: Product;
 
   @ManyToOne(() => Shop, shop => shop.reviews, {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   }) // if I use the Business abstract for the OneToMany, we can make Review.shop and Review.eat into a single Review.business
-  shop: Shop;
+  shop?: Shop;
 
   @ManyToOne(() => Eat, eat => eat.reviews, {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
-  eat: Eat;
+  eat?: Eat;
 }

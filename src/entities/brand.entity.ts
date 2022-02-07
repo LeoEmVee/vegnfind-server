@@ -21,17 +21,17 @@ export class Brand {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
-  products: Product[];
+  products?: Product[];
 
   @ManyToMany(() => Shop, shop => shop.brands, {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
-  shops: Shop[];
+  shops?: Shop[];
 
   @ManyToMany(() => Eat, eat => eat.brands, {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
-  eats: Eat[];
+  eats?: Eat[];
 }

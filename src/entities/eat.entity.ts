@@ -20,6 +20,7 @@ export class Eat extends Business {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
+  @JoinColumn({name: 'location'})
   location: Maplocation;
 
   @OneToMany(() => Review, review => review.eat, {
@@ -27,25 +28,25 @@ export class Eat extends Business {
     cascade: ['insert', 'update'],
   })
   @JoinColumn({name: 'reviews'})
-  reviews: Review[];
+  reviews?: Review[];
 
   // this allows us to separate on Category.shops / Category.eats
   @ManyToMany(() => Category, category => category.eats, {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
-  categories: Category[];
+  categories?: Category[];
 
   @ManyToMany(() => Favourites, favourites => favourites.eating, {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
-  favourites: Favourites[];
+  favourites?: Favourites[];
 
   @ManyToMany(() => Brand, brand => brand.eats, {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
   @JoinTable()
-  brands: Brand[];
+  brands?: Brand[];
 }

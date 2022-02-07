@@ -29,8 +29,8 @@ export class Maplocation {
   country: string;
 
   @OneToOne(() => Shop, shop => shop.location) // having 2 entities we can keep track of shops locations and eats locations
-  shop: Shop;
+  shop?: Shop;
 
   @OneToOne(() => Eat, eat => eat.location)
-  eat: Eat;
+  eat?: Eat;
 }
