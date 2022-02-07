@@ -14,7 +14,13 @@ export class VeggieService {
 
   async findOneByCondition(condition: any): Promise<Veggie> {
     try {
-      return await this.veggieRepository.findOneOrFail(condition);
+      // return await this.veggieRepository.findOneOrFail(condition);
+      return await this.veggieRepository
+        .createQueryBuilder('veggie')
+        .leftJoinAndSelect('veggie.reviews', 'review')
+        .leftJoinAndSelect('veggie.favourites', 'favourites')
+        .where(condition)
+        .getOneOrFail();
     } catch (error) {
       throw new NotFoundException(error, "This Veggie doesn't exist");
     }
