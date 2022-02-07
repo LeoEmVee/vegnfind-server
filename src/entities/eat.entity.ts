@@ -1,4 +1,11 @@
-import {Entity, OneToOne, OneToMany, ManyToMany, JoinTable} from 'typeorm';
+import {
+  Entity,
+  OneToOne,
+  OneToMany,
+  ManyToMany,
+  JoinTable,
+  JoinColumn,
+} from 'typeorm';
 
 import {Business} from './abstract/business';
 import {Brand} from './brand.entity';
@@ -19,6 +26,7 @@ export class Eat extends Business {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
+  @JoinColumn({name: 'reviews'})
   reviews: Review[];
 
   // this allows us to separate on Category.shops / Category.eats
@@ -26,14 +34,12 @@ export class Eat extends Business {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
-  @JoinTable()
   categories: Category[];
 
   @ManyToMany(() => Favourites, favourites => favourites.eating, {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
-  @JoinTable()
   favourites: Favourites[];
 
   @ManyToMany(() => Brand, brand => brand.eats, {
