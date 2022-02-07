@@ -14,12 +14,21 @@ export class Favourites {
   })
   products: Product[];
 
-  @ManyToMany(() => Shop, shop => shop.favourites, {onDelete: 'CASCADE'})
+  @ManyToMany(() => Shop, shop => shop.favourites, {
+    onDelete: 'CASCADE',
+    cascade: ['insert', 'update'],
+  })
   shopping: Shop[];
 
-  @ManyToMany(() => Eat, eat => eat.favourites, {onDelete: 'CASCADE'})
+  @ManyToMany(() => Eat, eat => eat.favourites, {
+    onDelete: 'CASCADE',
+    cascade: ['insert', 'update'],
+  })
   eating: Eat[];
 
-  @OneToOne(() => Veggie, veggie => veggie.favourites, {onDelete: 'CASCADE'})
+  @OneToOne(() => Veggie, veggie => veggie.favourites, {
+    onDelete: 'CASCADE',
+    cascade: ['insert', 'update'],
+  })
   user: Veggie;
 }
