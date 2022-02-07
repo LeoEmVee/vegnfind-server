@@ -1,6 +1,5 @@
 import {Body, Controller, Delete, Post, Put} from '@nestjs/common';
 import {Favourites} from 'src/entities/favourites.entity';
-import {Repository} from 'typeorm';
 import {FavouritesService} from '../../services/favourites/favourites.service';
 
 @Controller('favourites')
