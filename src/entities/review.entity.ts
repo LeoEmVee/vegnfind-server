@@ -22,6 +22,9 @@ export class Review {
   @Column()
   rating: number;
 
+  @Column()
+  userPic: string;
+
   @ManyToOne(() => Veggie, veggie => veggie.reviews, {
     cascade: ['insert', 'update'],
   })
