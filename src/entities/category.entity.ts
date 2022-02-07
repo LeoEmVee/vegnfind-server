@@ -3,8 +3,9 @@ import {
   Column,
   PrimaryGeneratedColumn,
   ManyToMany,
-  OneToMany,
   JoinTable,
+  UpdateDateColumn,
+  CreateDateColumn,
 } from 'typeorm';
 import {Eat} from './eat.entity';
 import {Product} from './product.entity';
@@ -19,23 +20,26 @@ export class Category {
   name: string;
 
   @ManyToMany(() => Product, product => product.categories, {
-    onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
   @JoinTable({name: 'category_to_product'})
   products?: Product[];
 
   @ManyToMany(() => Shop, shop => shop.categories, {
-    onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
   @JoinTable({name: 'category_to_shop'})
   shops?: Shop[];
 
   @ManyToMany(() => Eat, eat => eat.categories, {
-    onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
   @JoinTable({name: 'category_to_eat'})
   eats?: Eat[];
+
+  @CreateDateColumn({name: 'created_at'})
+  createdAt: Date;
+
+  @UpdateDateColumn({name: 'updated_at'})
+  updatedAt: Date;
 }

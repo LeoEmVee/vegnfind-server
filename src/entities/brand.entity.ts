@@ -4,6 +4,8 @@ import {
   PrimaryGeneratedColumn,
   OneToMany,
   ManyToMany,
+  UpdateDateColumn,
+  CreateDateColumn,
 } from 'typeorm';
 import {Eat} from './eat.entity';
 import {Product} from './product.entity';
@@ -18,20 +20,23 @@ export class Brand {
   name: string;
 
   @OneToMany(() => Product, product => product.brand, {
-    onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
   products?: Product[];
 
   @ManyToMany(() => Shop, shop => shop.brands, {
-    onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
   shops?: Shop[];
 
   @ManyToMany(() => Eat, eat => eat.brands, {
-    onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
   eats?: Eat[];
+
+  @CreateDateColumn({name: 'created_at'})
+  createdAt: Date;
+
+  @UpdateDateColumn({name: 'updated_at'})
+  updatedAt: Date;
 }

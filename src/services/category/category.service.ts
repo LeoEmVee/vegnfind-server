@@ -14,9 +14,9 @@ export class CategoryService {
   async getAll(): Promise<Category[]> {
     return await this.categoryRepository
       .createQueryBuilder('category')
-      .leftJoinAndSelect('category.products', 'category_to_product')
-      .leftJoinAndSelect('category.shops', 'category_to_shop')
-      .leftJoinAndSelect('category.eats', 'category_to_eats')
+      .leftJoinAndSelect('category.products', 'product')
+      .leftJoinAndSelect('category.shops', 'shop')
+      .leftJoinAndSelect('category.eats', 'eat')
       .getMany();
   }
 

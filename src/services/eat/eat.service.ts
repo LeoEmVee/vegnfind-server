@@ -19,9 +19,9 @@ export class EatService {
     try {
       return await this.eatRepository
         .createQueryBuilder('eat')
-        .leftJoinAndSelect('eat.favourites', 'favourites_to_eat')
-        .leftJoinAndSelect('eat.categories', 'category_to_eat')
-        .leftJoinAndSelect('eat.brands', 'eat_to_brand')
+        .leftJoinAndSelect('eat.favourites', 'favourites')
+        .leftJoinAndSelect('eat.categories', 'category')
+        .leftJoinAndSelect('eat.brands', 'brand')
         .leftJoinAndSelect('eat.reviews', 'review')
         .leftJoinAndSelect('eat.location', 'maplocation')
         .where(condition)
@@ -35,9 +35,9 @@ export class EatService {
     try {
       return await this.eatRepository
         .createQueryBuilder('eat')
-        .leftJoinAndSelect('eat.favourites', 'favourites_to_eat')
-        .leftJoinAndSelect('eat.categories', 'category_to_eat')
-        .leftJoinAndSelect('eat.brands', 'eat_to_brand')
+        .leftJoinAndSelect('eat.favourites', 'favourites')
+        .leftJoinAndSelect('eat.categories', 'category')
+        .leftJoinAndSelect('eat.brands', 'brand')
         .leftJoinAndSelect('eat.reviews', 'review')
         .leftJoinAndSelect('eat.location', 'maplocation')
         .where('LOWER(eat.name) like LOWER(:name)', {name: `%${searchTerm}%`})

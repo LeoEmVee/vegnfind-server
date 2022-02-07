@@ -5,6 +5,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import {InjectRepository} from '@nestjs/typeorm';
+import {Favourites} from 'src/entities/favourites.entity';
 import {Repository} from 'typeorm';
 import {Product} from '../../entities/product.entity';
 
@@ -19,9 +20,9 @@ export class ProductService {
     try {
       return await this.productRepository
         .createQueryBuilder('product')
-        .leftJoinAndSelect('product.favourites', 'favourites_to_product')
-        .leftJoinAndSelect('product.categories', 'category_to_product')
-        .leftJoinAndSelect('product.shops', 'shop_to_product')
+        .leftJoinAndSelect('product.favourites', 'favourites')
+        .leftJoinAndSelect('product.categories', 'category')
+        .leftJoinAndSelect('product.shops', 'shop')
         .leftJoinAndSelect('product.reviews', 'review')
         .leftJoinAndSelect('product.brand', 'brand')
         .where(condition)
@@ -35,9 +36,9 @@ export class ProductService {
     try {
       return await this.productRepository
         .createQueryBuilder('product')
-        .leftJoinAndSelect('product.favourites', 'favourites_to_products')
-        .leftJoinAndSelect('product.categories', 'category_to_product')
-        .leftJoinAndSelect('product.shops', 'shop_to_product')
+        .leftJoinAndSelect('product.favourites', 'favourites')
+        .leftJoinAndSelect('product.categories', 'category')
+        .leftJoinAndSelect('product.shops', 'shop')
         .leftJoinAndSelect('product.reviews', 'review')
         .leftJoinAndSelect('product.brand', 'brand')
         .where('LOWER(product.name) like LOWER(:name)', {

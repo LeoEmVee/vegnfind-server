@@ -8,6 +8,8 @@ import {
   ManyToMany,
   JoinTable,
   ManyToOne,
+  CreateDateColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import {Review} from './review.entity';
 import {Favourites} from './favourites.entity';
@@ -38,35 +40,37 @@ export class Product {
   @Column('int', {nullable: true})
   userFavCount?: number;
 
-  @ManyToMany(() => Favourites, favourites => favourites.user, {
-    onDelete: 'CASCADE',
+  @ManyToMany(() => Favourites, favourites => favourites.products, {
     cascade: ['insert', 'update'],
   })
+  @JoinTable({name: 'favourites_to_product'})
   favourites?: Favourites;
 
   @OneToMany(() => Review, review => review.product, {
-    onDelete: 'CASCADE',
-    cascade: ['insert', 'update'],
+    cascade: ['insert', 'update', 'remove'],
   })
   @JoinColumn({name: 'reviews'})
   reviews?: Review[];
 
   @ManyToOne(() => Brand, brand => brand.products, {
-    onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
   @JoinColumn({name: 'brand'})
   brand?: Brand;
 
   @ManyToMany(() => Shop, shop => shop.products, {
-    onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
   shops?: Shop[];
 
   @ManyToMany(() => Category, category => category.products, {
-    onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
   categories?: Category[];
+
+  @CreateDateColumn({name: 'created_at'})
+  createdAt: Date;
+
+  @UpdateDateColumn({name: 'updated_at'})
+  updatedAt: Date;
 }
