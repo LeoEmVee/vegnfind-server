@@ -5,6 +5,8 @@ import {
   OneToOne,
   OneToMany,
   JoinColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import {IsEmail} from 'class-validator';
 import {Review} from './review.entity';
@@ -36,15 +38,19 @@ export class Veggie {
   profilePic: string;
 
   @OneToMany(() => Review, review => review.user, {
-    onDelete: 'CASCADE',
-    cascade: ['insert', 'update'],
+    cascade: ['insert', 'update', 'remove'],
   })
   @JoinColumn({name: 'reviews'})
   reviews?: Review[];
 
   @OneToOne(() => Favourites, favourites => favourites.user, {
-    onDelete: 'CASCADE',
-    cascade: ['insert', 'update'],
+    cascade: ['insert', 'update', 'remove'],
   })
   favourites?: Favourites;
+
+  @CreateDateColumn({name: 'created_at'})
+  createdAt: Date;
+
+  @UpdateDateColumn({name: 'updated_at'})
+  updatedAt: Date;
 }

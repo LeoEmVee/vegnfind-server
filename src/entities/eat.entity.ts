@@ -5,6 +5,8 @@ import {
   ManyToMany,
   JoinTable,
   JoinColumn,
+  UpdateDateColumn,
+  CreateDateColumn,
 } from 'typeorm';
 
 import {Business} from './abstract/business';
@@ -17,36 +19,37 @@ import {Review} from './review.entity';
 @Entity()
 export class Eat extends Business {
   @OneToOne(() => Maplocation, maplocation => maplocation.eat, {
-    onDelete: 'CASCADE',
-    cascade: ['insert', 'update'],
+    cascade: ['insert', 'update', 'remove'],
   })
   @JoinColumn({name: 'location'})
   location: Maplocation;
 
   @OneToMany(() => Review, review => review.eat, {
-    onDelete: 'CASCADE',
-    cascade: ['insert', 'update'],
+    cascade: ['insert', 'update', 'remove'],
   })
   @JoinColumn({name: 'reviews'})
   reviews?: Review[];
 
   // this allows us to separate on Category.shops / Category.eats
   @ManyToMany(() => Category, category => category.eats, {
-    onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
   categories?: Category[];
 
   @ManyToMany(() => Favourites, favourites => favourites.eating, {
-    onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
   favourites?: Favourites[];
 
   @ManyToMany(() => Brand, brand => brand.eats, {
-    onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
   @JoinTable({name: 'eat_to_brand'})
   brands?: Brand[];
+
+  @CreateDateColumn({name: 'created_at'})
+  createdAt: Date;
+
+  @UpdateDateColumn({name: 'updated_at'})
+  updatedAt: Date;
 }
