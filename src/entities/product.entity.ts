@@ -2,7 +2,6 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  OneToOne,
   OneToMany,
   JoinColumn,
   ManyToMany,
@@ -43,10 +42,7 @@ export class Product {
   @ManyToMany(() => Favourites, favourites => favourites.products, {
     cascade: ['insert', 'update'],
   })
-<<<<<<< HEAD
   @JoinTable({name: 'favourites_to_product'})
-=======
->>>>>>> c1a3a04761aa1bceb0c07c9adfa17e61a195c88b
   favourites?: Favourites;
 
   @OneToMany(() => Review, review => review.product, {
@@ -67,7 +63,6 @@ export class Product {
   shops?: Shop[];
 
   @ManyToMany(() => Category, category => category.products, {
-<<<<<<< HEAD
     cascade: ['insert', 'update'],
   })
   categories?: Category[];
@@ -77,10 +72,4 @@ export class Product {
 
   @UpdateDateColumn({name: 'updated_at'})
   updatedAt: Date;
-=======
-    onDelete: 'CASCADE',
-    cascade: ['insert', 'update'],
-  })
-  categories?: Category[];
->>>>>>> c1a3a04761aa1bceb0c07c9adfa17e61a195c88b
 }

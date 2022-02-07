@@ -23,34 +23,21 @@ export class Review {
   rating: number;
 
   @ManyToOne(() => Veggie, veggie => veggie.reviews, {
-<<<<<<< HEAD
-=======
-    onDelete: 'CASCADE',
->>>>>>> c1a3a04761aa1bceb0c07c9adfa17e61a195c88b
     cascade: ['insert', 'update'],
   })
   user: Veggie;
 
   @ManyToOne(() => Product, product => product.reviews, {
-<<<<<<< HEAD
-=======
-    onDelete: 'CASCADE',
->>>>>>> c1a3a04761aa1bceb0c07c9adfa17e61a195c88b
     cascade: ['insert', 'update'],
   })
   product?: Product;
 
   @ManyToOne(() => Shop, shop => shop.reviews, {
-<<<<<<< HEAD
-=======
-    onDelete: 'CASCADE',
->>>>>>> c1a3a04761aa1bceb0c07c9adfa17e61a195c88b
     cascade: ['insert', 'update'],
   }) // if I use the Business abstract for the OneToMany, we can make Review.shop and Review.eat into a single Review.business
   shop?: Shop;
 
   @ManyToOne(() => Eat, eat => eat.reviews, {
-<<<<<<< HEAD
     cascade: ['insert', 'update'],
   })
   eat?: Eat;
@@ -60,10 +47,4 @@ export class Review {
 
   @UpdateDateColumn({name: 'updated_at'})
   updatedAt: Date;
-=======
-    onDelete: 'CASCADE',
-    cascade: ['insert', 'update'],
-  })
-  eat?: Eat;
->>>>>>> c1a3a04761aa1bceb0c07c9adfa17e61a195c88b
 }
