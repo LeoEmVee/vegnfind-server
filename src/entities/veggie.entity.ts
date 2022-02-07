@@ -35,10 +35,16 @@ export class Veggie {
   @Column()
   profilePic: string;
 
-  @OneToMany(() => Review, review => review.user)
+  @OneToMany(() => Review, review => review.user, {
+    onDelete: 'CASCADE',
+    cascade: ['insert', 'update'],
+  })
   reviews?: Review[];
 
-  @OneToOne(() => Favourites, favourites => favourites.user)
+  @OneToOne(() => Favourites, favourites => favourites.user, {
+    onDelete: 'CASCADE',
+    cascade: ['insert', 'update'],
+  })
   @JoinColumn()
   favourites?: Favourites;
 }

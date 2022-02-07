@@ -1,12 +1,6 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Post,
-  Put,
-  UnprocessableEntityException,
-} from '@nestjs/common';
+import {Body, Controller, Delete, Post, Put} from '@nestjs/common';
 import {Favourites} from 'src/entities/favourites.entity';
+import {Repository} from 'typeorm';
 import {FavouritesService} from '../../services/favourites/favourites.service';
 
 @Controller('favourites')
@@ -27,4 +21,10 @@ export class FavouritesController {
   deleteFav(@Body() condition: any) {
     return this.favouritesService.deleteOneByCondition(condition);
   }
+
+  // ONLY FOR DEVELOPMENT
+  // @Delete('table')
+  // dropTable() {
+  //   return this.favouritesService.dropTable();
+  // }
 }

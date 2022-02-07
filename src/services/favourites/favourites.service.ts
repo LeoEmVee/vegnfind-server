@@ -56,4 +56,8 @@ export class FavouritesService {
       .from(Favourites)
       .execute();
   }
+
+  // async dropTable(): Promise<void> {
+  //   await this.favouritesRepository.query('DROP TABLE favourites CASCADE');
+  // }
 }
