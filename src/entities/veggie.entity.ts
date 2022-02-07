@@ -41,10 +41,9 @@ export class Veggie {
   })
   reviews?: Review[];
 
-  @OneToOne(() => Favourites, favourites => favourites.veggie, {
+  @OneToOne(() => Favourites, favourites => favourites.user, {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
-  @JoinColumn()
   favourites?: Favourites;
 }

@@ -1,4 +1,10 @@
-import {Entity, PrimaryGeneratedColumn, OneToOne, ManyToMany} from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  OneToOne,
+  ManyToMany,
+  JoinColumn,
+} from 'typeorm';
 import {Veggie} from './veggie.entity';
 import {Product} from './product.entity';
 import {Shop} from './shop.entity';
@@ -30,5 +36,6 @@ export class Favourites {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
-  veggie: Veggie;
+  @JoinColumn({name: 'user'})
+  user: Veggie;
 }
