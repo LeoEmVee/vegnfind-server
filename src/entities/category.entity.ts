@@ -4,6 +4,7 @@ import {
   PrimaryGeneratedColumn,
   ManyToMany,
   OneToMany,
+  JoinTable,
 } from 'typeorm';
 import {Eat} from './eat.entity';
 import {Product} from './product.entity';
@@ -19,12 +20,22 @@ export class Category {
 
   @ManyToMany(() => Product, product => product.categories, {
     onDelete: 'CASCADE',
+    cascade: ['insert', 'update'],
   })
+  @JoinTable()
   products?: Product[];
 
-  @ManyToMany(() => Shop, shop => shop.categories, {onDelete: 'CASCADE'})
+  @ManyToMany(() => Shop, shop => shop.categories, {
+    onDelete: 'CASCADE',
+    cascade: ['insert', 'update'],
+  })
+  @JoinTable()
   shops?: Shop[];
 
-  @ManyToMany(() => Eat, eat => eat.categories, {onDelete: 'CASCADE'})
+  @ManyToMany(() => Eat, eat => eat.categories, {
+    onDelete: 'CASCADE',
+    cascade: ['insert', 'update'],
+  })
+  @JoinTable()
   eats?: Eat[];
 }

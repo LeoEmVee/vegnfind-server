@@ -42,19 +42,20 @@ export class Product {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
-  @JoinTable()
   favourites: Favourites;
 
   @OneToMany(() => Review, review => review.product, {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
+  @JoinColumn({name: 'reviews'})
   reviews: Review[];
 
   @ManyToOne(() => Brand, brand => brand.products, {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
+  @JoinColumn({name: 'brand'})
   brand: Brand;
 
   @ManyToMany(() => Shop, shop => shop.products, {
@@ -67,6 +68,5 @@ export class Product {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
-  @JoinTable()
   categories: Category[];
 }
