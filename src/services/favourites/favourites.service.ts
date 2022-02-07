@@ -50,29 +50,33 @@ export class FavouritesService {
     try {
       const oldFav = await this.findOneByCondition({user: userId});
       const newFav = {...oldFav};
-      console.log('newFav before', newFav);
       // if shopping || eating || products include the item, remove it:
-      if (newFav.shopping.includes(itemId)) {
-        newFav.shopping.splice(newFav.shopping.indexOf(itemId), 1);
-      } else if (newFav.eating.includes(itemId)) {
-        newFav.eating.splice(newFav.eating.indexOf(itemId), 1);
-      } else if (newFav.products.includes(itemId)) {
-        newFav.products.splice(newFav.products.indexOf(itemId), 1);
+      const shopIndex = newFav.shopping.findIndex(
+        (item: any) => item.id === itemId,
+      );
+      const eatIndex = newFav.eating.findIndex(
+        (item: any) => item.id === itemId,
+      );
+      const productIndex = newFav.products.findIndex(
+        (item: any) => item.id === itemId,
+      );
+
+      if (shopIndex !== -1 || eatIndex !== -1 || productIndex !== -1) {
+        shopIndex !== -1 && newFav.shopping.splice(shopIndex, 1);
+        eatIndex !== -1 && newFav.eating.splice(eatIndex, 1);
+        productIndex !== -1 && newFav.products.splice(productIndex, 1);
       } else {
         // else, look for the item in tables and include it in the correct array
-        console.log('newFav else', newFav);
         const isEat = await this.eatRepository.findOne(itemId);
         const isShop = await this.shopRepository.findOne(itemId);
         const isProduct = await this.productRepository.findOne(itemId);
-        if (isEat) {
-          newFav.eating.push(itemId);
-        } else if (isShop) {
-          newFav.shopping.push(itemId);
-        } else if (isProduct) {
-          newFav.products.push(itemId);
+
+        if (isEat || isShop || isProduct) {
+          isEat && newFav.eating.push(isEat);
+          isShop && newFav.shopping.push(isShop);
+          isProduct && newFav.products.push(isProduct);
         }
       }
-      console.log('newFav after', newFav);
       return await this.favouritesRepository.save(newFav);
     } catch (error) {
       throw new NotFoundException(error, 'Fav list or fav item not found!');
