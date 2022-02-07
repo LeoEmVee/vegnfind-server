@@ -27,6 +27,9 @@ import {Brand} from './entities/brand.entity';
 import {BrandController} from './controllers/brand/brand.controller';
 import {BrandService} from './services/brand/brand.service';
 import {Favourites} from './entities/favourites.entity';
+import {ReviewsController} from './controllers/reviews/reviews.controller';
+import {ReviewsService} from './services/reviews/reviews.service';
+import {Review} from './entities/review.entity';
 import {FavouritesController} from './controllers/favourites/favourites.controller';
 import {FavouritesService} from './services/favourites/favourites.service';
 require('dotenv').config();
@@ -61,6 +64,7 @@ require('dotenv').config();
       Product,
       Brand,
       Favourites,
+      Review,
     ]),
     PassportModule,
     JwtModule.register({
@@ -78,6 +82,7 @@ require('dotenv').config();
     CloudinaryController,
     BrandController,
     FavouritesController,
+    ReviewsController,
   ],
   providers: [
     CategoryService,
@@ -90,6 +95,7 @@ require('dotenv').config();
     CloudinaryService,
     BrandService,
     FavouritesService,
+    ReviewsService,
   ],
 })
 export class AppModule {}
