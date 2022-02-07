@@ -35,9 +35,9 @@ export class ProductService {
     try {
       return await this.productRepository
         .createQueryBuilder('product')
-        .leftJoinAndSelect('product.favourites', 'favourites_products_product')
-        .leftJoinAndSelect('product.categories', 'category_products_product')
-        .leftJoinAndSelect('product.shops', 'shop_products_product')
+        .leftJoinAndSelect('product.favourites', 'favourites_to_products')
+        .leftJoinAndSelect('product.categories', 'category_to_product')
+        .leftJoinAndSelect('product.shops', 'shop_to_product')
         .leftJoinAndSelect('product.reviews', 'review')
         .leftJoinAndSelect('product.brand', 'brand')
         .where('LOWER(product.name) like LOWER(:name)', {
