@@ -35,7 +35,7 @@ export class Shop extends Business {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
-  @JoinTable()
+  @JoinTable({name: 'shop_to_product'})
   products?: Product[];
 
   @ManyToMany(() => Category, category => category.shops, {
@@ -54,6 +54,6 @@ export class Shop extends Business {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
-  @JoinTable()
+  @JoinTable({name: 'shop_to_brand'})
   brands?: Brand[];
 }

@@ -17,7 +17,15 @@ export class EatService {
 
   async findOneByCondition(condition: any): Promise<Eat> {
     try {
-      return await this.eatRepository.findOneOrFail(condition);
+      return await this.eatRepository
+        .createQueryBuilder('eat')
+        .leftJoinAndSelect('eat.favourites', 'favourites_to_eat')
+        .leftJoinAndSelect('eat.categories', 'category_to_eat')
+        .leftJoinAndSelect('eat.brands', 'eat_to_brand')
+        .leftJoinAndSelect('eat.reviews', 'review')
+        .leftJoinAndSelect('eat.location', 'maplocation')
+        .where(condition)
+        .getOneOrFail();
     } catch (error) {
       throw new NotFoundException(error, "This Eat doesn't exist");
     }
