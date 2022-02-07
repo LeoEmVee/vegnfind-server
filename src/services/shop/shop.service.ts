@@ -18,7 +18,16 @@ export class ShopService {
 
   async findOneByCondition(condition: any): Promise<Shop> {
     try {
-      return await this.shopRepository.findOneOrFail(condition);
+      return await this.shopRepository
+        .createQueryBuilder('shop')
+        .leftJoinAndSelect('shop.favourites', 'favourites_to_shop')
+        .leftJoinAndSelect('shop.categories', 'category_to_shop')
+        .leftJoinAndSelect('shop.products', 'shop_to_product')
+        .leftJoinAndSelect('shop.brands', 'shop_to_brand')
+        .leftJoinAndSelect('shop.reviews', 'review')
+        .leftJoinAndSelect('shop.location', 'maplocation')
+        .where(condition)
+        .getOneOrFail();
     } catch (error) {
       throw new NotFoundException(error, "This Shop doesn't exist");
     }

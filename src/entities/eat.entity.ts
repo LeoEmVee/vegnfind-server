@@ -47,6 +47,6 @@ export class Eat extends Business {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
-  @JoinTable()
+  @JoinTable({name: 'eat_to_brand'})
   brands?: Brand[];
 }
