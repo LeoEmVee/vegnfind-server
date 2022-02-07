@@ -20,21 +20,21 @@ export class Favourites {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
-  @JoinTable()
+  @JoinTable({name: 'favourites_to_products'})
   products?: Product[];
 
   @ManyToMany(() => Shop, shop => shop.favourites, {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
-  @JoinTable()
+  @JoinTable({name: 'favourites_to_shops'})
   shopping?: Shop[];
 
   @ManyToMany(() => Eat, eat => eat.favourites, {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
-  @JoinTable()
+  @JoinTable({name: 'favourites_to_eats'})
   eating?: Eat[];
 
   @OneToOne(() => Veggie, veggie => veggie.favourites, {
