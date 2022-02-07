@@ -30,5 +30,5 @@ export class Favourites {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
-  user: Veggie;
+  veggie: Veggie;
 }
