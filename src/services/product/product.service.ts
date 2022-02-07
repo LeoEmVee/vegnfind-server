@@ -17,9 +17,17 @@ export class ProductService {
 
   async findOneByCondition(condition: any): Promise<Product> {
     try {
-      return await this.productRepository.findOneOrFail(condition);
+      return await this.productRepository
+        .createQueryBuilder('product')
+        .leftJoinAndSelect('product.favourites', 'favourites_products_product')
+        .leftJoinAndSelect('product.categories', 'category_products_product')
+        .leftJoinAndSelect('product.shops', 'shop_products_product')
+        .leftJoinAndSelect('product.reviews', 'review')
+        .leftJoinAndSelect('product.brand', 'brand')
+        .where(condition)
+        .getOneOrFail();
     } catch (error) {
-      throw new NotFoundException(error, "This Shop doesn't exist");
+      throw new NotFoundException(error, "This Product doesn't exist");
     }
   }
 
@@ -27,13 +35,10 @@ export class ProductService {
     try {
       return await this.productRepository
         .createQueryBuilder('product')
-        .leftJoinAndSelect(
-          'product.favourites',
-          'product_favourites_favourites',
-        )
-        .leftJoinAndSelect('product.reviews', 'review')
-        .leftJoinAndSelect('product.categories', 'product_categories_category')
+        .leftJoinAndSelect('product.favourites', 'favourites_products_product')
+        .leftJoinAndSelect('product.categories', 'category_products_product')
         .leftJoinAndSelect('product.shops', 'shop_products_product')
+        .leftJoinAndSelect('product.reviews', 'review')
         .leftJoinAndSelect('product.brand', 'brand')
         .where('LOWER(product.name) like LOWER(:name)', {
           name: `%${searchTerm}%`,
