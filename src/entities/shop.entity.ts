@@ -5,6 +5,7 @@ import {
   OneToMany,
   ManyToMany,
   JoinTable,
+  JoinColumn,
 } from 'typeorm';
 import {Brand} from './brand.entity';
 import {Maplocation} from './maplocation.entity';
@@ -26,6 +27,7 @@ export class Shop extends Business {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
+  @JoinColumn({name: 'reviews'})
   reviews: Review[];
 
   @ManyToMany(() => Product, product => product.shops, {
@@ -39,14 +41,12 @@ export class Shop extends Business {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
-  @JoinTable()
   categories: Category[];
 
   @ManyToMany(() => Favourites, favourites => favourites.shopping, {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
-  @JoinTable()
   favourites: Favourites[];
 
   @ManyToMany(() => Brand, brand => brand.shops, {

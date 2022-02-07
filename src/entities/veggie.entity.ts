@@ -39,6 +39,7 @@ export class Veggie {
     onDelete: 'CASCADE',
     cascade: ['insert', 'update'],
   })
+  @JoinColumn({name: 'reviews'})
   reviews?: Review[];
 
   @OneToOne(() => Favourites, favourites => favourites.user, {

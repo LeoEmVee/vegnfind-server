@@ -18,6 +18,7 @@ export class Favourites {
 
   @ManyToMany(() => Product, product => product.favourites, {
     onDelete: 'CASCADE',
+    cascade: ['insert', 'update'],
   })
   @JoinTable()
   products: Product[];
