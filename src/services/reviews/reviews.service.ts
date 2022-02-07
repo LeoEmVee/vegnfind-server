@@ -1,13 +1,20 @@
-import {ConflictException, NotFoundException, Injectable} from '@nestjs/common';
+import {
+  ConflictException,
+  NotFoundException,
+  Injectable,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import {InjectRepository} from '@nestjs/typeorm';
 import {Review} from '../../entities/review.entity';
 import {Repository} from 'typeorm';
+import {VeggieService} from '../../services/user/veggie.service';
 
 @Injectable()
 export class ReviewsService {
   constructor(
     @InjectRepository(Review)
     private reviewRepository: Repository<Review>,
+    private veggieService: VeggieService,
   ) {}
 
   async findOneByCondition(condition: any): Promise<Review> {
@@ -25,13 +32,26 @@ export class ReviewsService {
     }
   }
 
-  async createOne(review: Review): Promise<Review> {
-    const reviewExists = await this.reviewRepository.findOne(review.id);
-    if (reviewExists) {
-      throw new ConflictException('This review already exists!');
+  async createOne(
+    rating: number,
+    userPic: string,
+    text: string,
+    username: string,
+  ): Promise<Review> {
+    try {
+      const user = await this.veggieService.findOneByCondition({
+        username: username,
+      });
+      const newReview = await this.reviewRepository.create({
+        text: text,
+        userPic: userPic,
+        rating: rating,
+        user: user,
+      });
+      return this.reviewRepository.save(newReview);
+    } catch (error) {
+      throw new UnprocessableEntityException('Request data not processable');
     }
-    const newReview = await this.reviewRepository.create({...review});
-    return this.reviewRepository.save(newReview);
   }
 
   async updateOne(userId, itemId): Promise<Review> {
