@@ -20,10 +20,17 @@ export class ShopService {
     try {
       return await this.shopRepository
         .createQueryBuilder('shop')
+<<<<<<< HEAD
         .leftJoinAndSelect('shop.favourites', 'favourites')
         .leftJoinAndSelect('shop.categories', 'category')
         .leftJoinAndSelect('shop.products', 'product')
         .leftJoinAndSelect('shop.brands', 'brand')
+=======
+        .leftJoinAndSelect('shop.favourites', 'favourites_to_shop')
+        .leftJoinAndSelect('shop.categories', 'category_to_shop')
+        .leftJoinAndSelect('shop.products', 'shop_to_product')
+        .leftJoinAndSelect('shop.brands', 'shop_to_brand')
+>>>>>>> c1a3a04761aa1bceb0c07c9adfa17e61a195c88b
         .leftJoinAndSelect('shop.reviews', 'review')
         .leftJoinAndSelect('shop.location', 'maplocation')
         .where(condition)
@@ -37,10 +44,17 @@ export class ShopService {
     try {
       return await this.shopRepository
         .createQueryBuilder('shop')
+<<<<<<< HEAD
         .leftJoinAndSelect('shop.favourites', 'favourites')
         .leftJoinAndSelect('shop.categories', 'category')
         .leftJoinAndSelect('shop.products', 'product')
         .leftJoinAndSelect('shop.brands', 'brand')
+=======
+        .leftJoinAndSelect('shop.favourites', 'favourites_to_shop')
+        .leftJoinAndSelect('shop.categories', 'category_to_shop')
+        .leftJoinAndSelect('shop.products', 'shop_to_product')
+        .leftJoinAndSelect('shop.brands', 'shop_to_brand')
+>>>>>>> c1a3a04761aa1bceb0c07c9adfa17e61a195c88b
         .leftJoinAndSelect('shop.reviews', 'review')
         .leftJoinAndSelect('shop.location', 'maplocation')
         .where('LOWER(shop.name) like LOWER(:name)', {

@@ -5,8 +5,11 @@ import {
   ManyToMany,
   JoinTable,
   JoinColumn,
+<<<<<<< HEAD
   UpdateDateColumn,
   CreateDateColumn,
+=======
+>>>>>>> c1a3a04761aa1bceb0c07c9adfa17e61a195c88b
 } from 'typeorm';
 
 import {Business} from './abstract/business';
@@ -19,7 +22,12 @@ import {Review} from './review.entity';
 @Entity()
 export class Eat extends Business {
   @OneToOne(() => Maplocation, maplocation => maplocation.eat, {
+<<<<<<< HEAD
     cascade: ['insert', 'update', 'remove'],
+=======
+    onDelete: 'CASCADE',
+    cascade: ['insert', 'update'],
+>>>>>>> c1a3a04761aa1bceb0c07c9adfa17e61a195c88b
   })
   @JoinColumn({name: 'location'})
   location: Maplocation;
@@ -46,10 +54,13 @@ export class Eat extends Business {
   })
   @JoinTable({name: 'eat_to_brand'})
   brands?: Brand[];
+<<<<<<< HEAD
 
   @CreateDateColumn({name: 'created_at'})
   createdAt: Date;
 
   @UpdateDateColumn({name: 'updated_at'})
   updatedAt: Date;
+=======
+>>>>>>> c1a3a04761aa1bceb0c07c9adfa17e61a195c88b
 }

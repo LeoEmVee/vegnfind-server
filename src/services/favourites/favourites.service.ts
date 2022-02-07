@@ -26,9 +26,15 @@ export class FavouritesService {
     try {
       return await this.favouritesRepository
         .createQueryBuilder('favourites')
+<<<<<<< HEAD
         .leftJoinAndSelect('favourites.products', 'product')
         .leftJoinAndSelect('favourites.shopping', 'shop')
         .leftJoinAndSelect('favourites.eating', 'eat')
+=======
+        .leftJoinAndSelect('favourites.products', 'favourites_to_product')
+        .leftJoinAndSelect('favourites.shopping', 'favourites_to_shop')
+        .leftJoinAndSelect('favourites.eating', 'favourites_to_eat')
+>>>>>>> c1a3a04761aa1bceb0c07c9adfa17e61a195c88b
         .leftJoinAndSelect('favourites.user', 'veggie')
         .where(condition)
         .getOneOrFail();
