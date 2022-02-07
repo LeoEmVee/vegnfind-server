@@ -21,10 +21,4 @@ export class FavouritesController {
   deleteFav(@Body() condition: any) {
     return this.favouritesService.deleteOneByCondition(condition);
   }
-
-  // ONLY FOR DEVELOPMENT
-  // @Delete('table')
-  // dropTable() {
-  //   return this.favouritesService.dropTable();
-  // }
 }
