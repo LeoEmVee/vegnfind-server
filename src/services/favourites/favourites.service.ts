@@ -36,34 +36,25 @@ export class FavouritesService {
 
   async findAnyById(id: string): Promise<any> {
     try {
-      const eat = await this.eatRepository
-        .createQueryBuilder('eat')
-        .leftJoinAndSelect('eat.favourites', 'favourites')
-        .leftJoinAndSelect('eat.categories', 'category')
-        .leftJoinAndSelect('eat.brand', 'brand')
-        .leftJoinAndSelect('eat.reviews', 'review')
-        .leftJoinAndSelect('eat.location', 'maplocation')
-        .where({id: id})
-        .getOne();
-      const shop = await this.shopRepository
-        .createQueryBuilder()
-        .leftJoinAndSelect('shop.favourites', 'favourites')
-        .leftJoinAndSelect('shop.categories', 'category')
-        .leftJoinAndSelect('shop.products', 'product')
-        .leftJoinAndSelect('shop.brand', 'brand')
-        .leftJoinAndSelect('shop.reviews', 'review')
-        .leftJoinAndSelect('shop.location', 'maplocation')
-        .where({id: id})
-        .getOne();
-      const product = await this.productRepository
-        .createQueryBuilder('product')
-        .leftJoinAndSelect('product.favourites', 'favourites')
-        .leftJoinAndSelect('product.categories', 'category')
-        .leftJoinAndSelect('product.shops', 'shop')
-        .leftJoinAndSelect('product.reviews', 'review')
-        .leftJoinAndSelect('product.brand', 'brand')
-        .where({id: id})
-        .getOne();
+      const eat = await this.eatRepository.findOne(id, {
+        relations: ['categories', 'location', 'reviews', 'favourites', 'brand'],
+      });
+
+      const shop = await this.shopRepository.findOne(id, {
+        relations: [
+          'categories',
+          'location',
+          'reviews',
+          'products',
+          'favourites',
+          'brand',
+        ],
+      });
+
+      const product = await this.productRepository.findOne(id, {
+        relations: ['favourites', 'reviews', 'brand', 'shops', 'categories'],
+      });
+
       return eat || shop || product;
     } catch (error) {
       throw new NotFoundException(error, 'Item not found!');

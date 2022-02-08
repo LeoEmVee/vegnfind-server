@@ -8,6 +8,7 @@ import {
   UpdateDateColumn,
   CreateDateColumn,
   Column,
+  ManyToOne,
 } from 'typeorm';
 
 import {Business} from './abstract/business';
@@ -45,7 +46,7 @@ export class Eat extends Business {
   })
   favourites?: Favourites[];
 
-  @OneToMany(() => Brand, brand => brand.eats, {
+  @ManyToOne(() => Brand, brand => brand.eats, {
     cascade: ['insert', 'update'],
   })
   @JoinColumn({name: 'brand'})

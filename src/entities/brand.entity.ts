@@ -25,12 +25,12 @@ export class Brand {
   })
   products?: Product[];
 
-  @ManyToOne(() => Shop, shop => shop.brand, {
+  @OneToMany(() => Shop, shop => shop.brand, {
     cascade: ['insert', 'update'],
   })
   shops?: Shop[];
 
-  @ManyToOne(() => Eat, eat => eat.brand, {
+  @OneToMany(() => Eat, eat => eat.brand, {
     cascade: ['insert', 'update'],
   })
   eats?: Eat[];
