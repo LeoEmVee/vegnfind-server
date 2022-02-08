@@ -30,7 +30,7 @@ export class Brand {
   })
   shops?: Shop[];
 
-  @ManyToMany(() => Eat, eat => eat.brands, {
+  @ManyToOne(() => Eat, eat => eat.brand, {
     cascade: ['insert', 'update'],
   })
   eats?: Eat[];
