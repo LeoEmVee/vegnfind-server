@@ -23,7 +23,6 @@ export class FavouritesController {
 
   @Put('favourites')
   updateFav(@Body('userId') userId: string, @Body('itemId') itemId: string) {
-    console.log('controller', userId, itemId);
     return this.favouritesService.updateOne(userId, itemId);
   }
 

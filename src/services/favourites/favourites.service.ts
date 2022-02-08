@@ -74,7 +74,6 @@ export class FavouritesService {
   }
 
   async updateOne(userId, itemId): Promise<Favourites> {
-    console.log('service', userId, itemId);
     try {
       const oldFav = await this.favouritesRepository.findOne({user: userId});
       if (!oldFav) {
@@ -83,20 +82,23 @@ export class FavouritesService {
         const shop = await this.shopRepository.findOne(itemId);
         const eat = await this.eatRepository.findOne(itemId);
 
+        console.log(product, shop, eat);
         const createdFav = await this.favouritesRepository.create({
           user: userId,
         });
         if (product) {
-          createdFav.products.push(itemId);
+          createdFav.products = [itemId];
         }
         if (shop) {
-          createdFav.shopping.push(itemId);
+          createdFav.shopping = [itemId];
         }
         if (eat) {
-          createdFav.eating.push(itemId);
+          createdFav.eating = [itemId];
         }
-
-        return this.favouritesRepository.save(createdFav);
+        const createdFav2 = await this.favouritesRepository.create({
+          ...createdFav,
+        });
+        return this.favouritesRepository.save({...createdFav2});
       }
       const newFav = {...oldFav};
       // if shopping || eating || products include the item, remove it:
