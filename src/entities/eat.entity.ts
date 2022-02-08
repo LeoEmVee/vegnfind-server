@@ -45,7 +45,7 @@ export class Eat extends Business {
   })
   favourites?: Favourites[];
 
-  @ManyToMany(() => Brand, brand => brand.eats, {
+  @OneToMany(() => Brand, brand => brand.eats, {
     cascade: ['insert', 'update'],
   })
   @JoinColumn({name: 'brand'})
