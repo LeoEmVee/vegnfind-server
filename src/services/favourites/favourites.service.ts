@@ -113,9 +113,15 @@ export class FavouritesService {
         );
 
         if (shopIndex !== -1 || eatIndex !== -1 || productIndex !== -1) {
-          shopIndex !== -1 && newFav.shopping.splice(shopIndex, 1);
-          eatIndex !== -1 && newFav.eating.splice(eatIndex, 1);
-          productIndex !== -1 && newFav.products.splice(productIndex, 1);
+          if (shopIndex !== -1) {
+            newFav.shopping.splice(shopIndex, 1);
+          }
+          if (eatIndex !== -1) {
+            newFav.eating.splice(eatIndex, 1);
+          }
+          if (productIndex !== -1) {
+            newFav.products.splice(productIndex, 1);
+          }
           return await this.favouritesRepository.save(newFav);
         } else {
           // else, look for the item in tables and include it in the correct array
