@@ -1,5 +1,4 @@
 import {Body, Controller, Delete, Post, Put} from '@nestjs/common';
-import {Review} from '../../entities/review.entity';
 import {ReviewsService} from '../../services/reviews/reviews.service';
 
 @Controller('review')
