@@ -27,6 +27,9 @@ export class Veggie {
   @Column()
   username: string;
 
+  @Column({nullable: true})
+  description: string;
+
   @Column()
   @IsEmail()
   email: string;
