@@ -112,29 +112,29 @@ export class FavouritesService {
           (item: any) => item.id === itemId,
         );
 
-        if (shopIndex !== -1 && eatIndex !== -1 && productIndex !== -1) {
-          if (shopIndex !== -1) {
-            newFav.shopping.splice(shopIndex, 1);
-          }
-          if (eatIndex !== -1) {
-            newFav.eating.splice(eatIndex, 1);
-          }
-          if (productIndex !== -1) {
-            newFav.products.splice(productIndex, 1);
-          }
-          return await this.favouritesRepository.save(newFav);
-        } else {
-          // else, look for the item in tables and include it in the correct array
-          const isEat = await this.eatRepository.findOne(itemId);
-          const isShop = await this.shopRepository.findOne(itemId);
-          const isProduct = await this.productRepository.findOne(itemId);
-
-          isEat && newFav.eating.push(isEat);
-          isShop && newFav.shopping.push(isShop);
-          isProduct && newFav.products.push(isProduct);
-          console.log('HERE', newFav);
+        if (shopIndex !== -1) {
+          newFav.shopping.splice(shopIndex, 1);
           return await this.favouritesRepository.save(newFav);
         }
+        if (eatIndex !== -1) {
+          newFav.eating.splice(eatIndex, 1);
+          return await this.favouritesRepository.save(newFav);
+        }
+        if (productIndex !== -1) {
+          newFav.products.splice(productIndex, 1);
+          return await this.favouritesRepository.save(newFav);
+        }
+
+        // else, look for the item in tables and include it in the correct array
+        const isEat = await this.eatRepository.findOne(itemId);
+        const isShop = await this.shopRepository.findOne(itemId);
+        const isProduct = await this.productRepository.findOne(itemId);
+
+        isEat && newFav.eating.push(isEat);
+        isShop && newFav.shopping.push(isShop);
+        isProduct && newFav.products.push(isProduct);
+        console.log('HERE', newFav);
+        return await this.favouritesRepository.save(newFav);
       }
     } catch (error) {
       throw new NotFoundException(error, 'Fav list or fav item not found!');
