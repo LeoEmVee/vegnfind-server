@@ -20,7 +20,7 @@ import {Favourites} from './favourites.entity';
 @Entity()
 export class Shop extends Business {
   @Column({nullable: true})
-  website: string;
+  website?: string;
 
   @OneToOne(() => Maplocation, maplocation => maplocation.shop, {
     cascade: ['insert', 'update', 'remove'],
