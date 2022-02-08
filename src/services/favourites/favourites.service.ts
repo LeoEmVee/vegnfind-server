@@ -36,9 +36,34 @@ export class FavouritesService {
 
   async findAnyById(id: string): Promise<any> {
     try {
-      const eat = await this.eatRepository.findOne(id);
-      const shop = await this.shopRepository.findOne(id);
-      const product = await this.productRepository.findOne(id);
+      const eat = await this.eatRepository
+        .createQueryBuilder('eat')
+        .leftJoinAndSelect('eat.favourites', 'favourites')
+        .leftJoinAndSelect('eat.categories', 'category')
+        .leftJoinAndSelect('eat.brands', 'brand')
+        .leftJoinAndSelect('eat.reviews', 'review')
+        .leftJoinAndSelect('eat.location', 'maplocation')
+        .where({id: id})
+        .getOne();
+      const shop = await this.shopRepository
+        .createQueryBuilder()
+        .leftJoinAndSelect('shop.favourites', 'favourites')
+        .leftJoinAndSelect('shop.categories', 'category')
+        .leftJoinAndSelect('shop.products', 'product')
+        .leftJoinAndSelect('shop.brand', 'brand')
+        .leftJoinAndSelect('shop.reviews', 'review')
+        .leftJoinAndSelect('shop.location', 'maplocation')
+        .where({id: id})
+        .getOne();
+      const product = await this.productRepository
+        .createQueryBuilder('product')
+        .leftJoinAndSelect('product.favourites', 'favourites')
+        .leftJoinAndSelect('product.categories', 'category')
+        .leftJoinAndSelect('product.shops', 'shop')
+        .leftJoinAndSelect('product.reviews', 'review')
+        .leftJoinAndSelect('product.brand', 'brand')
+        .where({id: id})
+        .getOne();
       return eat || shop || product;
     } catch (error) {
       throw new NotFoundException(error, 'Item not found!');
