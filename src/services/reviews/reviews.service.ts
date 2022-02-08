@@ -11,13 +11,14 @@ import {VeggieService} from '../../services/user/veggie.service';
 import {Eat} from 'src/entities/eat.entity';
 import {Shop} from 'src/entities/shop.entity';
 import {Product} from 'src/entities/product.entity';
+import {Veggie} from 'src/entities/veggie.entity';
 
 @Injectable()
 export class ReviewsService {
   constructor(
+    private veggieService: VeggieService,
     @InjectRepository(Review)
     private reviewRepository: Repository<Review>,
-    private veggieService: VeggieService,
     @InjectRepository(Eat)
     private eatRepository: Repository<Eat>,
     @InjectRepository(Shop)
@@ -30,14 +31,20 @@ export class ReviewsService {
     try {
       return await this.reviewRepository
         .createQueryBuilder('review')
-        .leftJoinAndSelect('review.products', 'product')
-        .leftJoinAndSelect('review.shopping', 'shop')
-        .leftJoinAndSelect('review.eating', 'eat')
+        .leftJoinAndSelect('review.product', 'product')
+        .leftJoinAndSelect('review.shop', 'shop')
+        .leftJoinAndSelect('review.eat', 'eat')
+        // .leftJoinAndMapOne(
+        //   'review.user',
+        //   Veggie,
+        //   'veggie',
+        //   'review.user_id=veggie.id',
+        // )
         .leftJoinAndSelect('review.user', 'veggie')
         .where(condition)
         .getOneOrFail();
     } catch (error) {
-      throw new NotFoundException(error, "This Fav doesn't exist");
+      throw new NotFoundException(error, "This Review doesn't exist");
     }
   }
 
