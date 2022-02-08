@@ -74,11 +74,11 @@ export class FavouritesService {
   }
 
   async updateOne(userId, itemId): Promise<Favourites> {
-    console.log('service', userId, itemId);
     try {
       const oldFav = await this.favouritesRepository.findOne({user: userId});
       if (!oldFav) {
         // check if item is shop, eat or product:
+        console.log('NO FAV');
         const product = await this.productRepository.findOne(itemId);
         const shop = await this.shopRepository.findOne(itemId);
         const eat = await this.eatRepository.findOne(itemId);
