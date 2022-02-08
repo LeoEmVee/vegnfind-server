@@ -17,8 +17,15 @@ export class ReviewsController {
     @Body('userPic') userPic: string,
     @Body('text') text: string,
     @Body('rating') rating: number,
+    @Body('itemId') itemId: string,
   ) {
-    return this.reviewsService.createOne(rating, userPic, text, username);
+    return this.reviewsService.createOne(
+      rating,
+      userPic,
+      text,
+      username,
+      itemId,
+    );
   }
 
   @Put()
