@@ -8,6 +8,9 @@ import {InjectRepository} from '@nestjs/typeorm';
 import {Review} from '../../entities/review.entity';
 import {Repository} from 'typeorm';
 import {VeggieService} from '../../services/user/veggie.service';
+import {Eat} from 'src/entities/eat.entity';
+import {Shop} from 'src/entities/shop.entity';
+import {Product} from 'src/entities/product.entity';
 
 @Injectable()
 export class ReviewsService {
@@ -15,6 +18,12 @@ export class ReviewsService {
     @InjectRepository(Review)
     private reviewRepository: Repository<Review>,
     private veggieService: VeggieService,
+    @InjectRepository(Eat)
+    private eatRepository: Repository<Eat>,
+    @InjectRepository(Shop)
+    private shopRepository: Repository<Shop>,
+    @InjectRepository(Product)
+    private productRepository: Repository<Product>,
   ) {}
 
   async findOneByCondition(condition: any): Promise<Review> {
@@ -37,6 +46,7 @@ export class ReviewsService {
     userPic: string,
     text: string,
     username: string,
+    itemId: string,
   ): Promise<Review> {
     try {
       const user = await this.veggieService.findOneByCondition({
@@ -48,6 +58,16 @@ export class ReviewsService {
         rating: rating,
         user: user,
       });
+
+      // look for the item in tables and include it in the correct array
+      const isEat = await this.eatRepository.findOne(itemId);
+      const isShop = await this.shopRepository.findOne(itemId);
+      const isProduct = await this.productRepository.findOne(itemId);
+
+      if (isEat) newReview.eat = isEat;
+      if (isShop) newReview.shop = isShop;
+      if (isProduct) newReview.product = isProduct;
+
       return this.reviewRepository.save(newReview);
     } catch (error) {
       throw new UnprocessableEntityException('Request data not processable');
