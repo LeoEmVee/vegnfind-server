@@ -23,7 +23,7 @@ export class ShopService {
         .leftJoinAndSelect('shop.favourites', 'favourites')
         .leftJoinAndSelect('shop.categories', 'category')
         .leftJoinAndSelect('shop.products', 'product')
-        .leftJoinAndSelect('shop.brands', 'brand')
+        .leftJoinAndSelect('shop.brand', 'brand')
         .leftJoinAndSelect('shop.reviews', 'review')
         .leftJoinAndSelect('shop.location', 'maplocation')
         .where(condition)

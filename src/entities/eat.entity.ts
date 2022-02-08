@@ -48,8 +48,8 @@ export class Eat extends Business {
   @ManyToMany(() => Brand, brand => brand.eats, {
     cascade: ['insert', 'update'],
   })
-  @JoinTable({name: 'eat_to_brand'})
-  brands?: Brand[];
+  @JoinColumn({name: 'brand'})
+  brand: Brand;
 
   @CreateDateColumn({name: 'created_at'})
   createdAt: Date;

@@ -40,7 +40,7 @@ export class FavouritesService {
         .createQueryBuilder('eat')
         .leftJoinAndSelect('eat.favourites', 'favourites')
         .leftJoinAndSelect('eat.categories', 'category')
-        .leftJoinAndSelect('eat.brands', 'brand')
+        .leftJoinAndSelect('eat.brand', 'brand')
         .leftJoinAndSelect('eat.reviews', 'review')
         .leftJoinAndSelect('eat.location', 'maplocation')
         .where({id: id})
