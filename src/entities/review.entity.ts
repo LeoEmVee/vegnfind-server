@@ -28,7 +28,7 @@ export class Review {
   @ManyToOne(() => Veggie, veggie => veggie.reviews, {
     cascade: ['insert', 'update'],
   })
-  user: Veggie;
+  public user: Veggie;
 
   @ManyToOne(() => Product, product => product.reviews, {
     cascade: ['insert', 'update'],
