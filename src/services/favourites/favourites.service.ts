@@ -112,7 +112,7 @@ export class FavouritesService {
           (item: any) => item.id === itemId,
         );
 
-        if (shopIndex !== -1 || eatIndex !== -1 || productIndex !== -1) {
+        if (shopIndex !== -1 && eatIndex !== -1 && productIndex !== -1) {
           if (shopIndex !== -1) {
             newFav.shopping.splice(shopIndex, 1);
           }
