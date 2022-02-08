@@ -129,11 +129,10 @@ export class FavouritesService {
           const isShop = await this.shopRepository.findOne(itemId);
           const isProduct = await this.productRepository.findOne(itemId);
 
-          if (isEat || isShop || isProduct) {
-            isEat && newFav.eating.push(isEat);
-            isShop && newFav.shopping.push(isShop);
-            isProduct && newFav.products.push(isProduct);
-          }
+          isEat && newFav.eating.push(isEat);
+          isShop && newFav.shopping.push(isShop);
+          isProduct && newFav.products.push(isProduct);
+          console.log('HERE', newFav);
           return await this.favouritesRepository.save(newFav);
         }
       }
