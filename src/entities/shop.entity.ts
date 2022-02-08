@@ -8,6 +8,7 @@ import {
   JoinColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToOne,
 } from 'typeorm';
 import {Brand} from './brand.entity';
 import {Maplocation} from './maplocation.entity';
@@ -50,7 +51,7 @@ export class Shop extends Business {
   })
   favourites?: Favourites[];
 
-  @OneToMany(() => Brand, brand => brand.shops, {
+  @ManyToOne(() => Brand, brand => brand.shops, {
     cascade: ['insert', 'update'],
   })
   @JoinColumn({name: 'brand'})
