@@ -20,7 +20,7 @@ import {Review} from './review.entity';
 @Entity()
 export class Eat extends Business {
   @Column({nullable: true})
-  website: string;
+  website?: string;
 
   @OneToOne(() => Maplocation, maplocation => maplocation.eat, {
     cascade: ['insert', 'update', 'remove'],
