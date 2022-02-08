@@ -7,6 +7,7 @@ import {
   JoinColumn,
   UpdateDateColumn,
   CreateDateColumn,
+  Column,
 } from 'typeorm';
 
 import {Business} from './abstract/business';
@@ -18,6 +19,9 @@ import {Review} from './review.entity';
 
 @Entity()
 export class Eat extends Business {
+  @Column({nullable: true})
+  website: string;
+
   @OneToOne(() => Maplocation, maplocation => maplocation.eat, {
     cascade: ['insert', 'update', 'remove'],
   })

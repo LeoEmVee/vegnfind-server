@@ -6,6 +6,7 @@ import {
   ManyToMany,
   UpdateDateColumn,
   CreateDateColumn,
+  ManyToOne,
 } from 'typeorm';
 import {Eat} from './eat.entity';
 import {Product} from './product.entity';
@@ -24,7 +25,7 @@ export class Brand {
   })
   products?: Product[];
 
-  @ManyToMany(() => Shop, shop => shop.brands, {
+  @ManyToOne(() => Shop, shop => shop.brand, {
     cascade: ['insert', 'update'],
   })
   shops?: Shop[];

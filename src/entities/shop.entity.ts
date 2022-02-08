@@ -19,6 +19,9 @@ import {Favourites} from './favourites.entity';
 
 @Entity()
 export class Shop extends Business {
+  @Column({nullable: true})
+  website: string;
+
   @OneToOne(() => Maplocation, maplocation => maplocation.shop, {
     cascade: ['insert', 'update', 'remove'],
   })
@@ -47,11 +50,11 @@ export class Shop extends Business {
   })
   favourites?: Favourites[];
 
-  @ManyToMany(() => Brand, brand => brand.shops, {
+  @OneToMany(() => Brand, brand => brand.shops, {
     cascade: ['insert', 'update'],
   })
-  @JoinTable({name: 'shop_to_brand'})
-  brands?: Brand[];
+  @JoinColumn({name: 'brand'})
+  brand?: Brand;
 
   @CreateDateColumn({name: 'created_at'})
   createdAt: Date;

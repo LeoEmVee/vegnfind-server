@@ -34,6 +34,17 @@ export class FavouritesService {
     }
   }
 
+  async findAnyById(id: string): Promise<any> {
+    try {
+      const eat = await this.eatRepository.findOne(id);
+      const shop = await this.shopRepository.findOne(id);
+      const product = await this.productRepository.findOne(id);
+      return eat || shop || product;
+    } catch (error) {
+      throw new NotFoundException(error, 'Item not found!');
+    }
+  }
+
   async createOne(fav: Favourites): Promise<Favourites> {
     const favExists = await this.favouritesRepository.findOne(null, {
       where: {user: fav.user},
