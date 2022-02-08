@@ -5,6 +5,7 @@ import {Repository} from 'typeorm';
 import {Eat} from 'src/entities/eat.entity';
 import {Product} from 'src/entities/product.entity';
 import {Shop} from 'src/entities/shop.entity';
+import {create} from 'domain';
 
 @Injectable()
 export class FavouritesService {
@@ -75,7 +76,22 @@ export class FavouritesService {
   async updateOne(userId, itemId): Promise<Favourites> {
     console.log('service', userId, itemId);
     try {
-      const oldFav = await this.findOneByCondition({user: userId});
+      const oldFav = await this.favouritesRepository.findOne({user: userId});
+      if (!oldFav) {
+        // check if item is shop, eat or product:
+        const product = await this.productRepository.findOne(itemId);
+        const shop = await this.shopRepository.findOne(itemId);
+        const eat = await this.eatRepository.findOne(itemId);
+
+        const createdFav = await this.favouritesRepository.create({
+          user: userId,
+        });
+        product && createdFav.products.push(itemId);
+        shop && createdFav.shopping.push(itemId);
+        eat && createdFav.eating.push(itemId);
+
+        return this.favouritesRepository.save(createdFav);
+      }
       const newFav = {...oldFav};
       // if shopping || eating || products include the item, remove it:
       const shopIndex = newFav.shopping.findIndex(
