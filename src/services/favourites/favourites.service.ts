@@ -87,13 +87,13 @@ export class FavouritesService {
           user: userId,
         });
         if (product) {
-          createdFav.products = [itemId];
+          createdFav.products = [product];
         }
         if (shop) {
-          createdFav.shopping = [itemId];
+          createdFav.shopping = [shop];
         }
         if (eat) {
-          createdFav.eating = [itemId];
+          createdFav.eating = [eat];
         }
         const createdFav2 = await this.favouritesRepository.create({
           ...createdFav,
