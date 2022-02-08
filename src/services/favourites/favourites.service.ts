@@ -86,9 +86,15 @@ export class FavouritesService {
         const createdFav = await this.favouritesRepository.create({
           user: userId,
         });
-        product && createdFav.products.push(itemId);
-        shop && createdFav.shopping.push(itemId);
-        eat && createdFav.eating.push(itemId);
+        if (product) {
+          createdFav.products.push(itemId);
+        }
+        if (shop) {
+          createdFav.shopping.push(itemId);
+        }
+        if (eat) {
+          createdFav.eating.push(itemId);
+        }
 
         return this.favouritesRepository.save(createdFav);
       }
