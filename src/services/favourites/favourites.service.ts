@@ -75,14 +75,18 @@ export class FavouritesService {
 
   async updateOne(userId, itemId): Promise<Favourites> {
     try {
-      const oldFav = await this.favouritesRepository.findOne({user: userId});
+      const oldFav = await this.favouritesRepository.findOne(
+        {user: userId},
+        {relations: ['products', 'shopping', 'eating']},
+      );
+      console.log('OLD', oldFav);
       if (!oldFav) {
         // check if item is shop, eat or product:
         const product = await this.productRepository.findOne(itemId);
         const shop = await this.shopRepository.findOne(itemId);
         const eat = await this.eatRepository.findOne(itemId);
 
-        console.log(product, shop, eat);
+        console.log('FIRST', product, shop, eat);
         const createdFav = await this.favouritesRepository.create({
           user: userId,
         });
@@ -95,44 +99,55 @@ export class FavouritesService {
         if (eat) {
           createdFav.eating = [eat];
         }
-        const createdFav2 = await this.favouritesRepository.create({
-          ...createdFav,
-        });
-        return this.favouritesRepository.save({...createdFav2});
+        return this.favouritesRepository.save({...createdFav});
       } else {
         const newFav = {...oldFav};
+        console.log('second', newFav);
         // if shopping || eating || products include the item, remove it:
-        const shopIndex = newFav.shopping.findIndex(
-          (item: any) => item.id === itemId,
-        );
-        const eatIndex = newFav.eating.findIndex(
-          (item: any) => item.id === itemId,
-        );
-        const productIndex = newFav.products.findIndex(
-          (item: any) => item.id === itemId,
-        );
+        if (newFav.shopping || newFav.eating || newFav.products) {
+          const shopIndex = newFav.shopping.findIndex(
+            (item: any) => item.id === itemId,
+          );
+          const eatIndex = newFav.eating.findIndex(
+            (item: any) => item.id === itemId,
+          );
+          const productIndex = newFav.products.findIndex(
+            (item: any) => item.id === itemId,
+          );
 
-        if (shopIndex !== -1) {
-          newFav.shopping.splice(shopIndex, 1);
-          return await this.favouritesRepository.save(newFav);
-        }
-        if (eatIndex !== -1) {
-          newFav.eating.splice(eatIndex, 1);
-          return await this.favouritesRepository.save(newFav);
-        }
-        if (productIndex !== -1) {
-          newFav.products.splice(productIndex, 1);
-          return await this.favouritesRepository.save(newFav);
+          console.log('indexes', shopIndex, eatIndex, productIndex);
+          if (shopIndex !== -1) {
+            newFav.shopping.splice(shopIndex, 1);
+            return await this.favouritesRepository.save(newFav);
+          }
+          if (eatIndex !== -1) {
+            newFav.eating.splice(eatIndex, 1);
+            return await this.favouritesRepository.save(newFav);
+          }
+          if (productIndex !== -1) {
+            newFav.products.splice(productIndex, 1);
+            return await this.favouritesRepository.save(newFav);
+          }
         }
 
         // else, look for the item in tables and include it in the correct array
         const isEat = await this.eatRepository.findOne(itemId);
         const isShop = await this.shopRepository.findOne(itemId);
         const isProduct = await this.productRepository.findOne(itemId);
-
-        isEat && newFav.eating.push(isEat);
-        isShop && newFav.shopping.push(isShop);
-        isProduct && newFav.products.push(isProduct);
+        console.log('found items', isEat, isShop, isProduct);
+        if (isEat) {
+          newFav.eating ? newFav.eating.push(isEat) : (newFav.eating = [isEat]);
+        }
+        if (isShop) {
+          newFav.shopping
+            ? newFav.shopping.push(isShop)
+            : (newFav.shopping = [isShop]);
+        }
+        if (isProduct) {
+          newFav.products
+            ? newFav.products.push(isProduct)
+            : (newFav.products = [isProduct]);
+        }
         console.log('HERE', newFav);
         return await this.favouritesRepository.save(newFav);
       }
