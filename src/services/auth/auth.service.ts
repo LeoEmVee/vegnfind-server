@@ -9,27 +9,19 @@ interface Payload {
 
 @Injectable()
 export class AuthService {
-  constructor(
-    private veggieService: VeggieService,
-    private jwtService: JwtService,
-  ) {}
+  constructor(private veggieService: VeggieService) {}
 
   async validateUser(username: string, password: string): Promise<any> {
-    const user = await this.veggieService.findOneByCondition({
-      username: username,
-    });
-    if (user && bcrypt.compare(password, user.password)) {
-      const {password, ...result} = user;
-      return result;
-    } else {
+    try {
+      const user = await this.veggieService.findOneByCondition({
+        username: username,
+      });
+      const valid = await bcrypt.compare(password, user.password);
+
+      const result = {...user, password: null};
+      return valid && result;
+    } catch (error) {
       throw new UnauthorizedException('Invalid credentials!');
     }
-  }
-
-  async login(user: any) {
-    const payload = {user};
-    return {
-      access_token: await this.jwtService.sign(payload),
-    };
   }
 }

@@ -25,11 +25,9 @@ export class VeggieService {
     }
   }
 
-  async createOne(user: Veggie): Promise<Veggie> {
+  async createOne(user: Veggie): Promise<any> {
     // check if user already exists in db
-    const userExists = await this.veggieRepository.findOne(null, {
-      where: {email: user.email},
-    });
+    const userExists = await this.veggieRepository.findOne({email: user.email});
     if (userExists) {
       throw new ConflictException('This User already exists!');
     }
@@ -44,7 +42,9 @@ export class VeggieService {
 
     // create new instance of Veggie and save into db
     const newUser = await this.veggieRepository.create({...hashedUser});
-    return this.veggieRepository.save(newUser);
+    await this.veggieRepository.save(newUser);
+    const {password, ...result} = newUser;
+    return result;
   }
 
   async updateOne(veggie: Veggie): Promise<Veggie> {

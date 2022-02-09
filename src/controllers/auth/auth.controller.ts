@@ -33,6 +33,16 @@ export class AuthController {
   // @UseGuards(LocalAuthGuard) // Local guard keeps the route accessible only through validation
   @Post('login')
   async login(@Body() user: any) {
-    return await this.authService.login(user);
+    try {
+      const validated = await this.authService.validateUser(
+        user.username,
+        user.password,
+      );
+      const payload = {user};
+      const token = {access_token: await this.jwtService.sign(payload)};
+      return validated && token;
+    } catch (error) {
+      throw new UnauthorizedException('Invalid credentials!');
+    }
   }
 }
