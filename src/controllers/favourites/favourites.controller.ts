@@ -16,6 +16,11 @@ export class FavouritesController {
     return this.favouritesService.createOne(fav);
   }
 
+  @Put('addpic')
+  addItemPicture(@Body('id') id: string, @Body('url') url: string) {
+    return this.favouritesService.addPictureToItem(id, url);
+  }
+
   @Post('findany')
   findAnyItem(@Body() id: string) {
     return this.favouritesService.findAnyById(id);

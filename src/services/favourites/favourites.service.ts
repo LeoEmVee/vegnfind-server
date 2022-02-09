@@ -35,7 +35,7 @@ export class FavouritesService {
     }
   }
 
-  async findAnyById(id: string): Promise<any> {
+  async findAnyById(id: string): Promise<Eat | Shop | Product> {
     try {
       const eat = await this.eatRepository.findOne(id, {
         relations: [
@@ -168,6 +168,36 @@ export class FavouritesService {
       }
     } catch (error) {
       throw new NotFoundException(error, 'Fav list or fav item not found!');
+    }
+  }
+
+  isInstanceOfEat(data: any): data is Eat {
+    return 'name' in data;
+  }
+  isInstanceOfShop(data: any): data is Shop {
+    return 'name' in data;
+  }
+  isInstanceOfProduct(data: any): data is Product {
+    return 'name' in data;
+  }
+
+  async addPictureToItem(id: string, url: string) {
+    const item = await this.findAnyById(id);
+    const newImages = [...item.images, url];
+    if (this.isInstanceOfEat(item)) {
+      const newItem = {...item, images: newImages};
+      const newEat = await this.eatRepository.create(newItem);
+      return await this.eatRepository.save(newEat);
+    }
+    if (this.isInstanceOfShop(item)) {
+      const newItem = {...item, images: newImages};
+      const newShop = await this.shopRepository.create(newItem);
+      return await this.shopRepository.save(newShop);
+    }
+    if (this.isInstanceOfProduct(item)) {
+      const newItem = {...item, images: newImages};
+      const newProduct = await this.productRepository.create(newItem);
+      return this.productRepository.save(newProduct);
     }
   }
 

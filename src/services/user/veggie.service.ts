@@ -23,14 +23,6 @@ export class VeggieService {
           'favourites.eating',
         ],
       });
-      // .createQueryBuilder('veggie')
-      // .leftJoinAndSelect('veggie.reviews', 'review')
-      // .leftJoinAndSelect('veggie.favourites', 'favourites')
-      // .leftJoinAndSelect('veggie.favourites', 'favourites.products')
-      // .leftJoinAndSelect('veggie.favourites', 'favourites.eating')
-      // .leftJoinAndSelect('veggie.favourites', 'favourites.shopping')
-      // .where(condition)
-      // .getOneOrFail();
     } catch (error) {
       throw new NotFoundException(error, "This Veggie doesn't exist");
     }
