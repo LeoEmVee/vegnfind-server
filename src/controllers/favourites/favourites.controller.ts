@@ -16,7 +16,7 @@ export class FavouritesController {
     return this.favouritesService.createOne(fav);
   }
 
-  @Put('addpic')
+  @Put('updateimages')
   updateImages(@Body('id') id: string, @Body('url') url: string) {
     return this.favouritesService.updateItemImages(id, url);
   }
