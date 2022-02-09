@@ -17,8 +17,8 @@ export class FavouritesController {
   }
 
   @Put('addpic')
-  addItemPicture(@Body('id') id: string, @Body('url') url: string) {
-    return this.favouritesService.addPictureToItem(id, url);
+  updateImages(@Body('id') id: string, @Body('url') url: string) {
+    return this.favouritesService.updateItemImages(id, url);
   }
 
   @Post('findany')
