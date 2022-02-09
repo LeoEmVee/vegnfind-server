@@ -184,7 +184,7 @@ export class FavouritesService {
   async updateItemImages(id: string, url: string) {
     const item = await this.findAnyById(id);
     let newImages = [];
-    if (item.images.includes(url)) {
+    if (item.images && item.images.includes(url)) {
       const remImages = [...item.images];
       remImages.splice(item.images.indexOf(url), 1);
       newImages = [...remImages];
