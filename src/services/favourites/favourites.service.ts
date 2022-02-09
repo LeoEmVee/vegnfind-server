@@ -184,8 +184,9 @@ export class FavouritesService {
   async updateItemImages(id: string, url: string) {
     const item = await this.findAnyById(id);
     const modItem = {...item};
+    modItem.images.splice(item.images.indexOf(url), 1);
     const newImages = item.images.includes(url)
-      ? [...modItem.images.splice(item.images.indexOf(url), 1)]
+      ? modItem.images
       : item.images
       ? [...item.images, url]
       : [url];
