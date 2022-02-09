@@ -38,7 +38,14 @@ export class FavouritesService {
   async findAnyById(id: string): Promise<any> {
     try {
       const eat = await this.eatRepository.findOne(id, {
-        relations: ['categories', 'location', 'reviews', 'favourites', 'brand'],
+        relations: [
+          'categories',
+          'location',
+          'reviews',
+          'reviews.user',
+          'favourites',
+          'brand',
+        ],
       });
 
       const shop = await this.shopRepository.findOne(id, {
@@ -46,6 +53,7 @@ export class FavouritesService {
           'categories',
           'location',
           'reviews',
+          'reviews.user',
           'products',
           'favourites',
           'brand',
@@ -53,7 +61,14 @@ export class FavouritesService {
       });
 
       const product = await this.productRepository.findOne(id, {
-        relations: ['favourites', 'reviews', 'brand', 'shops', 'categories'],
+        relations: [
+          'favourites',
+          'reviews',
+          'reviews.user',
+          'brand',
+          'shops',
+          'categories',
+        ],
       });
 
       return eat || shop || product;
