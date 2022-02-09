@@ -14,12 +14,23 @@ export class VeggieService {
 
   async findOneByCondition(condition: any): Promise<Veggie> {
     try {
-      return await this.veggieRepository
-        .createQueryBuilder('veggie')
-        .leftJoinAndSelect('veggie.reviews', 'review')
-        .leftJoinAndSelect('veggie.favourites', 'favourites')
-        .where(condition)
-        .getOneOrFail();
+      return await this.veggieRepository.findOneOrFail(condition, {
+        relations: [
+          'reviews',
+          'favourites',
+          'favourites.products',
+          'favourites.shopping',
+          'favourites.eating',
+        ],
+      });
+      // .createQueryBuilder('veggie')
+      // .leftJoinAndSelect('veggie.reviews', 'review')
+      // .leftJoinAndSelect('veggie.favourites', 'favourites')
+      // .leftJoinAndSelect('veggie.favourites', 'favourites.products')
+      // .leftJoinAndSelect('veggie.favourites', 'favourites.eating')
+      // .leftJoinAndSelect('veggie.favourites', 'favourites.shopping')
+      // .where(condition)
+      // .getOneOrFail();
     } catch (error) {
       throw new NotFoundException(error, "This Veggie doesn't exist");
     }
