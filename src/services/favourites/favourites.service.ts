@@ -183,7 +183,7 @@ export class FavouritesService {
 
   async addPictureToItem(id: string, url: string) {
     const item = await this.findAnyById(id);
-    const newImages = [...item.images, url];
+    const newImages = item.images ? [...item.images, url] : [url];
     if (this.isInstanceOfEat(item)) {
       const newItem = {...item, images: newImages};
       const newEat = await this.eatRepository.create(newItem);
