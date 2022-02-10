@@ -16,7 +16,7 @@ export abstract class Business {
   @Column({nullable: true})
   email: string;
 
-  @Column({nullable: true})
+  @Column('bigint', {nullable: true})
   telephone: number;
 
   @Column('int', {nullable: true})
