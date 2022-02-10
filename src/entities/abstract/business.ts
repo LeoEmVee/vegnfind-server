@@ -4,7 +4,7 @@ export abstract class Business {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({nullable: true})
   isVegan: boolean;
 
   @Column()
