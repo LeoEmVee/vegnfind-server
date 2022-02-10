@@ -171,16 +171,6 @@ export class FavouritesService {
     }
   }
 
-  isInstanceOfEat(data: any): data is Eat {
-    return 'name' in data;
-  }
-  isInstanceOfShop(data: any): data is Shop {
-    return 'name' in data;
-  }
-  isInstanceOfProduct(data: any): data is Product {
-    return 'name' in data;
-  }
-
   async updateItemImages(id: string, url: string) {
     const item = await this.findAnyById(id);
     let newImages = [];
@@ -191,17 +181,17 @@ export class FavouritesService {
     } else {
       newImages = item.images ? [...item.images, url] : [url];
     }
-    if (this.isInstanceOfEat(item)) {
+    if (item instanceof Eat) {
       const newItem = {...item, images: newImages};
       const newEat = await this.eatRepository.create(newItem);
       return await this.eatRepository.save(newEat);
     }
-    if (this.isInstanceOfShop(item)) {
+    if (item instanceof Shop) {
       const newItem = {...item, images: newImages};
       const newShop = await this.shopRepository.create(newItem);
       return await this.shopRepository.save(newShop);
     }
-    if (this.isInstanceOfProduct(item)) {
+    if (item instanceof Product) {
       const newItem = {...item, images: newImages};
       const newProduct = await this.productRepository.create(newItem);
       return this.productRepository.save(newProduct);
