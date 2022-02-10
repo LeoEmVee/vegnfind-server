@@ -28,7 +28,6 @@ export class EatController {
     try {
       const eatLow = {
         ...eat,
-        name: eat.name.toUpperCase(),
         email: eat.email.toLowerCase(),
       };
       return this.eatService.createOne(eatLow);
