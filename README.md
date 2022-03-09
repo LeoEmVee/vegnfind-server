@@ -1,9 +1,10 @@
 # VeganFind
 
-Thesis project at Codeworks by:
-
 - [AVex3nder](https://github.com/AVex3nder)
 - [codecloud9](https://github.com/codecloud9)
 - [LeoEmVee](https://github.com/LeoEmVee)
 
-Work (and readme file) in progress...
+Project still in progress...
+
+- Client side: https://github.com/LeoEmVee/vegnfind-client
+- Server side: https://github.com/LeoEmVee/vegnfind-server
